@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
-// 👈 Import រូបភាពរបស់អ្នកចូលមកទីនេះ
+// 👈 Import រូបភាព Profile របស់អ្នកចូលមកទីនេះ
 import profileImage from '../assets/images/mypicture.JPG';
 
 const Home = ({ t, isDarkMode, lang }) => {
@@ -85,9 +85,20 @@ const Home = ({ t, isDarkMode, lang }) => {
               <Button href="#projects" variant="primary">
                 {t?.viewProjects || "View Projects"}
               </Button>
-              <Button href="#cv" variant="outline" isDarkMode={isDarkMode}>
+              
+              {/* 🛠 កែសម្រួលត្រង់នេះឱ្យត្រូវនឹងឈ្មោះ File ក្នុង public folder */}
+              <a 
+                href="/Intern%20developer.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`px-6 py-3 rounded-xl font-medium border transition-all duration-300 flex items-center justify-center shadow-sm hover:-translate-y-0.5 ${
+                  isDarkMode 
+                    ? 'border-zinc-700 text-white hover:bg-zinc-800 hover:border-zinc-600' 
+                    : 'border-zinc-300 text-gray-900 hover:bg-gray-100 hover:border-zinc-400'
+                }`}
+              >
                 {t?.viewCv || "View CV"}
-              </Button>
+              </a>
             </div>
           </div>
 
