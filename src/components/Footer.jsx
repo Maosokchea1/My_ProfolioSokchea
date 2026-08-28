@@ -38,7 +38,7 @@ const Footer = ({ t, isDarkMode, lang }) => {
             <div className="flex space-x-3">
               {/* Facebook */}
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/share/1LY2EmEAp7/?mibextid=wwXIfr" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={`p-2.5 rounded-xl border transition-colors ${
