@@ -83,7 +83,7 @@ const About = ({ t, isDarkMode, lang }) => {
                   isDarkMode ? 'border-zinc-800 bg-zinc-900/50' : 'border-zinc-200 bg-zinc-50'
                 }`}
               >
-                <h4 className="text-2xl font-bold mb-1 text-primary">10+</h4>
+                <h4 className="text-2xl font-bold mb-1 text-primary">2+ Coming soon 3 </h4>
                 <p className={`text-xs ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
                   {t.about?.projects || "Completed Projects"}
                 </p>

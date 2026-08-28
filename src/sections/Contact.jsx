@@ -3,20 +3,51 @@ import React, { useState } from 'react';
 const Contact = ({ t, isDarkMode }) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // អ្នកអាចបន្ថែម Logic ផ្ញើសារ (เช่น EmailJS ឬ Backend API) ទីនេះ
-    setSubmitted(true);
-    setFormData({ name: '', email: '', message: '' });
+    setLoading(true);
+
+    // ព័ត៌មាន Telegram Bot ដែលអ្នកបានផ្តល់ជូន
+    const BOT_TOKEN = '8869526479:AAGXGPEft8ru28qRUReb2XOCviiOor9LyEM';
     
-    setTimeout(() => {
-      setSubmitted(false);
-    }, 5000);
+    // បញ្ជាក់៖ អ្នកត្រូវជំនួស 'YOUR_CHAT_ID' ជាមួយនឹង Chat ID ផ្ទាល់ខ្លួនរបស់អ្នក (អាចរកបានតាមរយៈ Bot ដូចជា @userinfobot)
+    const CHAT_ID = '1302983925'; 
+
+    const text = `📬 មានសារថ្មីពី Website Portfolio!\n\n👤 ឈ្មោះ: ${formData.name}\n📧 អ៊ីមែល: ${formData.email}\n💬 សារ: ${formData.message}`;
+
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => {
+          setSubmitted(false);
+        }, 5000);
+      } else {
+        alert('មានបញ្ហាในการផ្ញើសារទៅកាន់ Telegram សូមព្យាយាមម្តងទៀត។');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('មានបញ្ហាបណ្តាញអនឡាញ (Network Error)!');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -114,9 +145,10 @@ const Contact = ({ t, isDarkMode }) => {
           {/* ប៊ូតុងបញ្ជូនសារ */}
           <button
             type="submit"
-            className="w-full py-3 px-6 rounded-lg font-semibold text-white bg-primary hover:bg-primary-600 transition-colors shadow-md"
+            disabled={loading}
+            className="w-full py-3 px-6 rounded-lg font-semibold text-white bg-primary hover:bg-primary-600 transition-colors shadow-md disabled:opacity-50"
           >
-            {t?.contact?.submitBtn || 'Send Message'}
+            {loading ? 'Sending...' : (t?.contact?.submitBtn || 'Send Message')}
           </button>
 
         </form>

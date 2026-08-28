@@ -1,4 +1,7 @@
 import React from 'react';
+import dashboardImg from '../assets/icons/image.png';
+import saleMovieImg from '../assets/Coming Soon/Sale_Moviec.png';
+import websiteSchoolImg from '../assets/Coming Soon/Website_School.png';
 
 const Projects = ({ t, isDarkMode }) => {
   // មុខងារសម្រាប់ទាញយក URL រូបភាព SVG ទៅតាមឈ្មោះ Tech
@@ -16,10 +19,18 @@ const Projects = ({ t, isDarkMode }) => {
         return 'https://api.iconify.design/vscode-icons:file-type-reactjs.svg';
       case 'tailwind css':
         return 'https://api.iconify.design/logos:tailwindcss-icon.svg';
-      case 'node.js':
-        return 'https://api.iconify.design/vscode-icons:file-type-node.svg';
+      case 'fastapi':
+        return 'https://api.iconify.design/logos:fastapi.svg';
+      case 'python':
+        return 'https://api.iconify.design/logos:python.svg';
       case 'firebase':
         return 'https://api.iconify.design/logos:firebase.svg';
+      case 'laravel':
+        return 'https://api.iconify.design/logos:laravel.svg';
+      case 'php':
+        return 'https://api.iconify.design/vscode-icons:file-type-php.svg';
+      case 'mysql':
+        return 'https://api.iconify.design/vscode-icons:file-type-mysql.svg';
       default:
         return null;
     }
@@ -36,7 +47,7 @@ const Projects = ({ t, isDarkMode }) => {
         { name: 'HTML', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
         { name: 'CSS', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
         { name: 'JavaScript', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
-        { name: 'Telegram Bot', url: 'OfficeSensokPhnomPenhbot' },
+        { name: 'Telegram Bot', url: 'https://t.me/OfficeSensokPhnomPenhbot' },
       ],
       github: 'https://github.com/your-username/coffice-phnom-penh',
       live: 'https://coffice-phnom-penh.vercel.app/',
@@ -44,44 +55,49 @@ const Projects = ({ t, isDarkMode }) => {
     {
       title: 'E-Commerce Website',
       description:
-        'A modern e-commerce platform built with React, Tailwind CSS, and Node.js featuring secure checkout.',
-      imageUrl:
-        'https://images.unsplash.com/photo-1557821552-1710517667fc?w=600&auto=format&fit=crop&q=60',
+        'A modern e-commerce platform built with React and Tailwind CSS, powered by FastAPI (Python) backend, featuring ABA Payway QR code checkout and instant Telegram Bot order notifications.',
+      imageUrl: saleMovieImg,
+      isComingSoon: true,
       tags: [
         { name: 'React', url: 'https://react.dev' },
         { name: 'Tailwind CSS', url: 'https://tailwindcss.com' },
-        { name: 'Node.js', url: 'https://nodejs.org' },
+        { name: 'FastAPI', url: 'https://fastapi.tiangolo.com/' },
+        { name: 'Python', url: 'https://www.python.org' },
+        { name: 'Telegram Bot', url: 'https://core.telegram.org/bots' },
       ],
-      github: 'https://github.com/your-username/ecommerce-app',
-      live: 'https://your-ecommerce-live-url.vercel.app/',
+      github: 'https://github.com/your-username/ecommerce-fastapi',
+      live: '#',
     },
     {
-      title: 'Portfolio Dashboard',
+      title: 'Dashboard Inventory',
       description:
-        'A responsive developer portfolio with multi-language support, dark/light mode toggle, and smooth animations.',
-      imageUrl:
-        'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&auto=format&fit=crop&q=60',
+        'A responsive inventory dashboard system powered by Laravel backend, featuring real-time data tracking and secure database operations.',
+      imageUrl: dashboardImg, 
+      isComingSoon: true,
       tags: [
-        { name: 'React', url: 'https://react.dev' },
+        { name: 'Laravel', url: 'https://laravel.com' },
+        { name: 'PHP', url: 'https://www.php.net' },
+        { name: 'MySQL', url: 'https://www.mysql.com' },
         { name: 'Tailwind CSS', url: 'https://tailwindcss.com' },
-        { name: 'JavaScript', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
       ],
       github: 'https://github.com/your-username/portfolio-dashboard',
-      live: 'https://your-portfolio-live-url.vercel.app/',
+      live: '#',
     },
     {
-      title: 'Task Management App',
+      // បានកែប្រែពី Task Management App មកដាក់ Website School ជាមួយ FastAPI & Python
+      title: 'Website School',
       description:
-        'A productivity application to organize daily tasks, set priorities, and track project completion status.',
-      imageUrl:
-        'https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=600&auto=format&fit=crop&q=60',
+        'A comprehensive school management and educational platform built with React and Tailwind CSS, powered by a robust FastAPI (Python) backend for managing students, courses, and academic records.',
+      imageUrl: websiteSchoolImg,
+      isComingSoon: true,
       tags: [
         { name: 'React', url: 'https://react.dev' },
-        { name: 'Firebase', url: 'https://firebase.google.com' },
         { name: 'Tailwind CSS', url: 'https://tailwindcss.com' },
+        { name: 'FastAPI', url: 'https://fastapi.tiangolo.com/' },
+        { name: 'Python', url: 'https://www.python.org' },
       ],
-      github: 'https://github.com/your-username/task-management-app',
-      live: 'https://your-task-app-live-url.vercel.app/',
+      github: 'https://github.com/your-username/website-school',
+      live: '#',
     },
   ];
 
@@ -133,16 +149,25 @@ const Projects = ({ t, isDarkMode }) => {
               }`}
             >
               {/* Image Container */}
-              <div className="relative w-full h-52 overflow-hidden bg-zinc-800">
+              <div className="relative w-full h-52 overflow-hidden bg-zinc-800 flex items-center justify-center">
                 <img
-                  src={
-                    project.imageUrl ||
-                    'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=60'
-                  }
+                  src={project.imageUrl}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className={`w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${
+                    project.isComingSoon ? 'object-contain p-8 opacity-60 bg-zinc-900' : ''
+                  }`}
                   loading="lazy"
                 />
+
+                {/* Coming Soon Badge Overlay */}
+                {project.isComingSoon && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                    <span className="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-indigo-600 text-white shadow-lg animate-pulse">
+                      Coming Soon
+                    </span>
+                  </div>
+                )}
+
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
 
@@ -203,7 +228,7 @@ const Projects = ({ t, isDarkMode }) => {
                       isDarkMode ? 'text-indigo-400' : 'text-indigo-600'
                     }`}
                   >
-                    {t?.projects?.cta || 'View Project'}
+                    {project.isComingSoon ? 'In Development' : (t?.projects?.cta || 'View Project')}
                   </span>
                   
                   <div className="flex items-center gap-2">
@@ -227,25 +252,27 @@ const Projects = ({ t, isDarkMode }) => {
                       </svg>
                     </a>
 
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Live Demo"
-                      className={`p-2 rounded-full transition-all duration-300 ${
-                        isDarkMode
-                          ? 'text-zinc-400 hover:text-white hover:bg-white/10'
-                          : 'text-zinc-600 hover:text-black hover:bg-black/5'
-                      }`}
-                    >
-                      <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                      </svg>
-                    </a>
+                    {!project.isComingSoon && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Live Demo"
+                        className={`p-2 rounded-full transition-all duration-300 ${
+                          isDarkMode
+                            ? 'text-zinc-400 hover:text-white hover:bg-white/10'
+                            : 'text-zinc-600 hover:text-black hover:bg-black/5'
+                        }`}
+                      >
+                        <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

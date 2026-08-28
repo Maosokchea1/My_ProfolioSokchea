@@ -32,13 +32,13 @@ const EducationExperience = ({ t, isDarkMode, lang }) => {
     {
       period: "2024 - 2028",
       degree: "Bachelor of Computer Science",
-      institution: "University Name",
+      institution: "Build bright University ",
       description: "Focused on software engineering, web development, algorithms, and database management systems.",
       imageUrl: "https://bbu-webiste-space.sgp1.cdn.digitaloceanspaces.com/campus/pp/logo/20250816071156_bd0691f6fd091331c1bd902546ed881652946d43cc827c9d0c408c4b96cd8ffe.webp" // ជំនួសដោយ URL រូបភាពរបស់អ្នក
     },
     {
       period: "2025 - 2026",
-      degree: "Full Stack Web Development Certification",
+      degree: "Team Group build School Full Stack Web Development Certification",
       institution: "Coding Bootcamp / Institute",
       description: "Completed intensive hands-on training on modern web technologies including React, Node.js, and databases.",
       imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=100&auto=format&fit=crop&q=60" // ជំនួសដោយ URL រូបភាពរបស់អ្នក
