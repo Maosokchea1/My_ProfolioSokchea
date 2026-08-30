@@ -68,10 +68,10 @@ const Skills = ({ t, isDarkMode, lang }) => {
     }
   ];
 
-  // បែងចែកបញ្ជីជំនាញជាពីរចំណែកស្មើគ្នាសម្រាប់ ២ ជួរ
-  const midpoint = Math.ceil(skillsList.length / 2);
-  const row1Skills = skillsList.slice(0, midpoint);
-  const row2Skills = skillsList.slice(midpoint);
+  // ញែកជំនាញតាមប្រភេទ (Frontend, Backend & Frameworks, Tools & Styling)
+  const frontendSkills = skillsList.filter(s => s.category === "Frontend");
+  const backendSkills = skillsList.filter(s => s.category === "Backend" || s.category === "Framework");
+  const toolsSkills = skillsList.filter(s => s.category === "Tools" || s.category === "Styling");
 
   return (
     <section
@@ -119,104 +119,108 @@ const Skills = ({ t, isDarkMode, lang }) => {
         </div>
       </div>
 
-      {/* Container ដាក់កម្រិតទទឹងកុំឱ្យរត់ពេញអេក្រង់ខ្លាំងពេក (Max-w-6xl និង rounded-2xl) */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`relative w-full overflow-hidden flex flex-col gap-6 py-6 rounded-2xl border ${
-          isDarkMode ? 'bg-zinc-950/40 border-zinc-900' : 'bg-zinc-100/60 border-zinc-200'
-        }`}>
-          {/* Shadow Overlay for Left and Right fading effect */}
-          <div className={`absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-r ${isDarkMode ? 'from-zinc-950' : 'from-zinc-100'} to-transparent`}></div>
-          <div className={`absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-l ${isDarkMode ? 'from-zinc-950' : 'from-zinc-100'} to-transparent`}></div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-10">
+        
+        {/* Category 1: Frontend */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 px-2">
+            {lang === 'ភាសាខ្មែរ' || lang === 'Khmer' ? 'ហ្វ្រុនអិន (Frontend)' : 'Frontend'}
+          </h3>
+          <div className={`relative w-full overflow-hidden flex flex-col py-4 rounded-2xl border ${
+            isDarkMode ? 'bg-zinc-950/40 border-zinc-900' : 'bg-zinc-100/60 border-zinc-200'
+          }`}>
+            <div className={`absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-r ${isDarkMode ? 'from-zinc-950' : 'from-zinc-100'} to-transparent`}></div>
+            <div className={`absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-l ${isDarkMode ? 'from-zinc-950' : 'from-zinc-100'} to-transparent`}></div>
 
-          {/* Row 1: Moves Left */}
-          <div className="animate-marquee-left flex gap-6 px-3">
-            {[...row1Skills, ...row1Skills].map((skill, index) => (
-              <div
-                key={`row1-${index}`}
-                className={`w-[260px] sm:w-[280px] flex-shrink-0 p-5 rounded-xl border transition-all duration-300 hover:border-primary/50 hover:shadow-xl flex flex-col justify-between ${
-                  isDarkMode ? 'bg-zinc-900/80 border-zinc-800' : 'bg-white border-zinc-200'
-                }`}
-              >
-                <div>
-                  <div className="flex justify-between items-start mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center p-2 ${
-                        isDarkMode ? 'bg-zinc-800' : 'bg-zinc-50 border border-zinc-200'
-                      }`}>
-                        <img 
-                          src={skill.iconUrl} 
-                          alt={skill.name} 
-                          className="w-full h-full object-contain" 
-                        />
-                      </div>
-                      <div>
-                        <span className={`text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded ${
-                          isDarkMode ? 'bg-zinc-800 text-zinc-400' : 'bg-zinc-100 text-zinc-600'
-                        }`}>
-                          {skill.category}
-                        </span>
-                      </div>
-                    </div>
-                    <span className="text-primary font-bold text-xs">{skill.level}</span>
-                  </div>
-                  <h3 className="font-semibold text-base mb-3">{skill.name}</h3>
-                </div>
-                <div className={`w-full h-1.5 rounded-full overflow-hidden ${isDarkMode ? 'bg-zinc-800' : 'bg-zinc-200'}`}>
-                  <div 
-                    className="bg-primary h-full rounded-full transition-all duration-700 ease-out" 
-                    style={{ width: skill.level }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Row 2: Moves Right */}
-          <div className="animate-marquee-right flex gap-6 px-3">
-            {[...row2Skills, ...row2Skills].map((skill, index) => (
-              <div
-                key={`row2-${index}`}
-                className={`w-[260px] sm:w-[280px] flex-shrink-0 p-5 rounded-xl border transition-all duration-300 hover:border-primary/50 hover:shadow-xl flex flex-col justify-between ${
-                  isDarkMode ? 'bg-zinc-900/80 border-zinc-800' : 'bg-white border-zinc-200'
-                }`}
-              >
-                <div>
-                  <div className="flex justify-between items-start mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center p-2 ${
-                        isDarkMode ? 'bg-zinc-800' : 'bg-zinc-50 border border-zinc-200'
-                      }`}>
-                        <img 
-                          src={skill.iconUrl} 
-                          alt={skill.name} 
-                          className="w-full h-full object-contain" 
-                        />
-                      </div>
-                      <div>
-                        <span className={`text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded ${
-                          isDarkMode ? 'bg-zinc-800 text-zinc-400' : 'bg-zinc-100 text-zinc-600'
-                        }`}>
-                          {skill.category}
-                        </span>
-                      </div>
-                    </div>
-                    <span className="text-primary font-bold text-xs">{skill.level}</span>
-                  </div>
-                  <h3 className="font-semibold text-base mb-3">{skill.name}</h3>
-                </div>
-                <div className={`w-full h-1.5 rounded-full overflow-hidden ${isDarkMode ? 'bg-zinc-800' : 'bg-zinc-200'}`}>
-                  <div 
-                    className="bg-primary h-full rounded-full transition-all duration-700 ease-out" 
-                    style={{ width: skill.level }}
-                  ></div>
-                </div>
-              </div>
-            ))}
+            <div className="animate-marquee-left flex gap-6 px-3">
+              {[...frontendSkills, ...frontendSkills].map((skill, index) => (
+                <SkillCard key={`frontend-${index}`} skill={skill} isDarkMode={isDarkMode} />
+              ))}
+            </div>
           </div>
         </div>
+
+        {/* Category 2: Backend & Frameworks */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 px-2">
+            {lang === 'ភាសាខ្មែរ' || lang === 'Khmer' ? 'បែកអិន និងហ្វ្រេមវើក (Backend & Frameworks)' : 'Backend & Frameworks'}
+          </h3>
+          <div className={`relative w-full overflow-hidden flex flex-col py-4 rounded-2xl border ${
+            isDarkMode ? 'bg-zinc-950/40 border-zinc-900' : 'bg-zinc-100/60 border-zinc-200'
+          }`}>
+            <div className={`absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-r ${isDarkMode ? 'from-zinc-950' : 'from-zinc-100'} to-transparent`}></div>
+            <div className={`absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-l ${isDarkMode ? 'from-zinc-950' : 'from-zinc-100'} to-transparent`}></div>
+
+            <div className="animate-marquee-right flex gap-6 px-3">
+              {[...backendSkills, ...backendSkills].map((skill, index) => (
+                <SkillCard key={`backend-${index}`} skill={skill} isDarkMode={isDarkMode} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Category 3: Tools & Styling */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 px-2">
+            {lang === 'ភាសាខ្មែរ' || lang === 'Khmer' ? 'ឧបករណ៍ និងស្ទីល (Tools & Styling)' : 'Tools & Styling'}
+          </h3>
+          <div className={`relative w-full overflow-hidden flex flex-col py-4 rounded-2xl border ${
+            isDarkMode ? 'bg-zinc-950/40 border-zinc-900' : 'bg-zinc-100/60 border-zinc-200'
+          }`}>
+            <div className={`absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-r ${isDarkMode ? 'from-zinc-950' : 'from-zinc-100'} to-transparent`}></div>
+            <div className={`absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-l ${isDarkMode ? 'from-zinc-950' : 'from-zinc-100'} to-transparent`}></div>
+
+            <div className="animate-marquee-left flex gap-6 px-3">
+              {[...toolsSkills, ...toolsSkills].map((skill, index) => (
+                <SkillCard key={`tools-${index}`} skill={skill} isDarkMode={isDarkMode} />
+              ))}
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
 };
+
+// Reusable Skill Card Component
+const SkillCard = ({ skill, isDarkMode }) => (
+  <div
+    className={`w-[260px] sm:w-[280px] flex-shrink-0 p-5 rounded-xl border transition-all duration-300 hover:border-primary/50 hover:shadow-xl flex flex-col justify-between ${
+      isDarkMode ? 'bg-zinc-900/80 border-zinc-800' : 'bg-white border-zinc-200'
+    }`}
+  >
+    <div>
+      <div className="flex justify-between items-start mb-3">
+        <div className="flex items-center gap-3">
+          <div className={`w-9 h-9 rounded-lg flex items-center justify-center p-2 ${
+            isDarkMode ? 'bg-zinc-800' : 'bg-zinc-50 border border-zinc-200'
+          }`}>
+            <img 
+              src={skill.iconUrl} 
+              alt={skill.name} 
+              className="w-full h-full object-contain" 
+            />
+          </div>
+          <div>
+            <span className={`text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded ${
+              isDarkMode ? 'bg-zinc-800 text-zinc-400' : 'bg-zinc-100 text-zinc-600'
+            }`}>
+              {skill.category}
+            </span>
+          </div>
+        </div>
+        <span className="text-primary font-bold text-xs">{skill.level}</span>
+      </div>
+      <h3 className="font-semibold text-base mb-3">{skill.name}</h3>
+    </div>
+    <div className={`w-full h-1.5 rounded-full overflow-hidden ${isDarkMode ? 'bg-zinc-800' : 'bg-zinc-200'}`}>
+      <div 
+        className="bg-primary h-full rounded-full transition-all duration-700 ease-out" 
+        style={{ width: skill.level }}
+      ></div>
+    </div>
+  </div>
+);
 
 export default Skills;

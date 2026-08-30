@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('#about');
+  const [activeSection, setActiveSection] = useState('#home');
 
   const currentFontClass =
     lang === 'ភាសាខ្មែរ' || lang === 'Khmer'
@@ -28,6 +28,13 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
     
     let svgPath = null;
     switch (href) {
+      case '#home':
+        svgPath = (
+          <svg className={iconClass} fill="none" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+        );
+        break;
       case '#about':
         svgPath = (
           <svg className={iconClass} fill="none" strokeWidth="2" viewBox="0 0 24 24">
@@ -114,35 +121,34 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
             </a>
           </div>
 
-          {/* Desktop Navigation - ដក border ចออก ទុកត្រឹម text និង hover/active ធម្មតា */}
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex space-x-6" aria-label="Main Navigation">
             {t?.nav &&
-              t.nav
-                .filter((link) => link.href !== '#home')
-                .map((link) => {
-                  const isActive = activeSection === link.href;
-                  return (
-                    <a
-                      key={link.name}
-                      href={link.href}
-                      onClick={() => setActiveSection(link.href)}
-                      className={`group flex items-center gap-2 text-sm font-medium py-2 transition-colors ${
-                        isActive
-                          ? 'text-primary'
-                          : isDarkMode
-                            ? 'text-zinc-300 hover:text-primary'
-                            : 'text-zinc-700 hover:text-primary'
-                      }`}
-                    >
-                      {getNavLinkIcon(link.href, isActive)}
-                      <span>{link.name}</span>
-                    </a>
-                  );
-                })}
+              t.nav.map((link) => {
+                const isActive = activeSection === link.href;
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setActiveSection(link.href)}
+                    className={`group flex items-center gap-2 text-sm font-medium py-2 transition-colors ${
+                      isActive
+                        ? 'text-primary'
+                        : isDarkMode
+                          ? 'text-zinc-300 hover:text-primary'
+                          : 'text-zinc-700 hover:text-primary'
+                    }`}
+                  >
+                    {getNavLinkIcon(link.href, isActive)}
+                    <span>{link.name}</span>
+                  </a>
+                );
+              })}
           </nav>
 
-          {/* Desktop Controls */}
+          {/* Desktop Controls (Color Picker removed) */}
           <div className="hidden lg:flex items-center space-x-3">
+            {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
               type="button"
@@ -156,6 +162,7 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
               <ThemeIcon dark={isDarkMode} />
             </button>
 
+            {/* Language Toggle Button */}
             <button
               onClick={toggleLanguage}
               type="button"
@@ -175,7 +182,7 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
             </button>
           </div>
 
-          {/* Mobile & Tablet Controls */}
+          {/* Mobile & Tablet Controls (Color Picker removed) */}
           <div className="flex items-center space-x-2 lg:hidden">
             <button
               onClick={toggleTheme}
@@ -238,31 +245,29 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
           }`}
         >
           {t?.nav &&
-            t.nav
-              .filter((link) => link.href !== '#home')
-              .map((link) => {
-                const isActive = activeSection === link.href;
-                return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => {
-                      setActiveSection(link.href);
-                      setIsOpen(false);
-                    }}
-                    className={`flex items-center gap-3 font-medium text-base py-2 px-3 rounded-lg transition-all ${
-                      isActive
-                        ? 'text-primary'
-                        : isDarkMode 
-                          ? 'text-zinc-300 hover:text-primary' 
-                          : 'text-zinc-700 hover:text-primary'
-                    }`}
-                  >
-                    {getNavLinkIcon(link.href, isActive)}
-                    <span>{link.name}</span>
-                  </a>
-                );
-              })}
+            t.nav.map((link) => {
+              const isActive = activeSection === link.href;
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => {
+                    setActiveSection(link.href);
+                    setIsOpen(false);
+                  }}
+                  className={`flex items-center gap-3 font-medium text-base py-2 px-3 rounded-lg transition-all ${
+                    isActive
+                      ? 'text-primary'
+                      : isDarkMode 
+                        ? 'text-zinc-300 hover:text-primary' 
+                        : 'text-zinc-700 hover:text-primary'
+                  }`}
+                >
+                  {getNavLinkIcon(link.href, isActive)}
+                  <span>{link.name}</span>
+                </a>
+              );
+            })}
         </div>
       )}
     </header>

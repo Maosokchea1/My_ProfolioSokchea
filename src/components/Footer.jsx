@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Footer = ({ t, isDarkMode, lang }) => {
-  // កំណត់ពុម្ពអក្សរតាមភាសា
   const currentFontClass =
     lang === 'ភាសាខ្មែរ' || lang === 'Khmer'
       ? 'font-khmer'
@@ -13,27 +12,33 @@ const Footer = ({ t, isDarkMode, lang }) => {
     <footer
       className={`border-t transition-colors duration-200 ${currentFontClass} ${
         isDarkMode
-          ? 'bg-black border-zinc-800 text-zinc-400'
-          : 'bg-white border-zinc-200 text-zinc-600'
+          ? 'bg-zinc-950 border-zinc-800 text-zinc-400'
+          : 'bg-zinc-50 border-zinc-200 text-zinc-600'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           
           {/* Logo & Brief Description */}
           <div className="space-y-2 text-center md:text-left">
-            <a href="#home" className={`text-2xl font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-black'}`}>
+            <a 
+              href="#home" 
+              className={`text-2xl font-bold tracking-tight inline-block ${
+                isDarkMode ? 'text-white' : 'text-black'
+              }`}
+            >
               PORTFOLIO<span className="text-primary">.</span>
             </a>
-            <p className="text-sm">
-              {lang === 'ភាសាខ្មែរ' || lang === 'Khmer'
-                ? 'អរគុណសម្រាប់ការទស្សនា Portfolio របស់ខ្ញុំ។'
-                : 'Thank you for visiting my personal portfolio website.'}
+            <p className="text-sm max-w-sm">
+              {t?.footer?.description || (lang === 'ភាសាខ្មែរ' || lang === 'Khmer' 
+                ? 'អរគុណសម្រាប់ការទស្សនា Portfolio របស់ខ្ញុំ។' 
+                : 'Thank you for visiting my personal portfolio website.')}
             </p>
           </div>
 
           {/* Social Media Links & Copyright */}
           <div className="flex flex-col items-center md:items-end space-y-4">
+            
             {/* Social Icons */}
             <div className="flex space-x-3">
               {/* Facebook */}
@@ -41,10 +46,10 @@ const Footer = ({ t, isDarkMode, lang }) => {
                 href="https://www.facebook.com/share/1LY2EmEAp7/?mibextid=wwXIfr" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={`p-2.5 rounded-xl border transition-colors ${
+                className={`p-2.5 rounded-xl border transition-all duration-200 hover:-translate-y-0.5 ${
                   isDarkMode 
                     ? 'border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-primary hover:border-primary' 
-                    : 'border-zinc-300 bg-zinc-100 text-zinc-600 hover:text-primary hover:border-primary'
+                    : 'border-zinc-300 bg-white text-zinc-600 hover:text-primary hover:border-primary shadow-sm'
                 }`}
                 aria-label="Facebook"
               >
@@ -58,10 +63,10 @@ const Footer = ({ t, isDarkMode, lang }) => {
                 href="https://t.me/sokcheamoa" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={`p-2.5 rounded-xl border transition-colors ${
+                className={`p-2.5 rounded-xl border transition-all duration-200 hover:-translate-y-0.5 ${
                   isDarkMode 
                     ? 'border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-primary hover:border-primary' 
-                    : 'border-zinc-300 bg-zinc-100 text-zinc-600 hover:text-primary hover:border-primary'
+                    : 'border-zinc-300 bg-white text-zinc-600 hover:text-primary hover:border-primary shadow-sm'
                 }`}
                 aria-label="Telegram"
               >
@@ -75,10 +80,10 @@ const Footer = ({ t, isDarkMode, lang }) => {
                 href="https://instagram.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={`p-2.5 rounded-xl border transition-colors ${
+                className={`p-2.5 rounded-xl border transition-all duration-200 hover:-translate-y-0.5 ${
                   isDarkMode 
                     ? 'border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-primary hover:border-primary' 
-                    : 'border-zinc-300 bg-zinc-100 text-zinc-600 hover:text-primary hover:border-primary'
+                    : 'border-zinc-300 bg-white text-zinc-600 hover:text-primary hover:border-primary shadow-sm'
                 }`}
                 aria-label="Instagram"
               >
@@ -91,12 +96,13 @@ const Footer = ({ t, isDarkMode, lang }) => {
             {/* Copyright & Built with */}
             <div className="text-center md:text-right text-xs space-y-1">
               <p>
-                &copy; {new Date().getFullYear()} PORTFOLIO. All rights reserved.
+                &copy; {new Date().getFullYear()} PORTFOLIO. {t?.footer?.rights || 'All rights reserved by Mao Sokchea'}
               </p>
               <p className="text-zinc-500">
-                Built with React & Tailwind CSS
+                {t?.footer?.builtWith || 'Built with React & Tailwind CSS'}
               </p>
             </div>
+
           </div>
 
         </div>

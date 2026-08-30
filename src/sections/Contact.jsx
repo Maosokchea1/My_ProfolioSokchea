@@ -13,13 +13,10 @@ const Contact = ({ t, isDarkMode }) => {
     e.preventDefault();
     setLoading(true);
 
-    // ព័ត៌មាន Telegram Bot ដែលអ្នកបានផ្តល់ជូន
     const BOT_TOKEN = '8869526479:AAGXGPEft8ru28qRUReb2XOCviiOor9LyEM';
-    
-    // បញ្ជាក់៖ អ្នកត្រូវជំនួស 'YOUR_CHAT_ID' ជាមួយនឹង Chat ID ផ្ទាល់ខ្លួនរបស់អ្នក (អាចរកបានតាមរយៈ Bot ដូចជា @userinfobot)
     const CHAT_ID = '1302983925'; 
 
-    const text = `📬 មានសារថ្មីពី Website Portfolio!\n\n👤 ឈ្មោះ: ${formData.name}\n📧 អ៊ីមែល: ${formData.email}\n💬 សារ: ${formData.message}`;
+    const text = `📬 New message from Portfolio Website!\n\n👤 Name: ${formData.name}\n📧 Email: ${formData.email}\n💬 Message: ${formData.message}`;
 
     try {
       const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -40,11 +37,11 @@ const Contact = ({ t, isDarkMode }) => {
           setSubmitted(false);
         }, 5000);
       } else {
-        alert('មានបញ្ហាในการផ្ញើសារទៅកាន់ Telegram សូមព្យាយាមម្តងទៀត។');
+        alert('Failed to send message to Telegram. Please try again.');
       }
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('មានបញ្ហាបណ្តាញអនឡាញ (Network Error)!');
+      alert('Network Error!');
     } finally {
       setLoading(false);
     }
@@ -59,7 +56,6 @@ const Contact = ({ t, isDarkMode }) => {
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header ផ្នែក Contact */}
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             {t?.contact?.title || 'Contact Me'}
@@ -69,7 +65,6 @@ const Contact = ({ t, isDarkMode }) => {
           </p>
         </div>
 
-        {/* Form ទំនាក់ទំនង */}
         <form onSubmit={handleSubmit} className={`p-8 rounded-2xl border shadow-lg ${
           isDarkMode ? 'bg-zinc-900 border-zinc-800' : 'bg-zinc-50 border-zinc-200'
         }`}>
@@ -81,7 +76,6 @@ const Contact = ({ t, isDarkMode }) => {
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-            {/* ឈ្មោះ */}
             <div>
               <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
                 {t?.contact?.nameLabel || 'Your Name'}
@@ -101,7 +95,6 @@ const Contact = ({ t, isDarkMode }) => {
               />
             </div>
 
-            {/* អ៊ីមែល */}
             <div>
               <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
                 {t?.contact?.emailLabel || 'Your Email'}
@@ -122,7 +115,6 @@ const Contact = ({ t, isDarkMode }) => {
             </div>
           </div>
 
-          {/* សារ (Message) */}
           <div className="mb-6">
             <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
               {t?.contact?.messageLabel || 'Your Message'}
@@ -142,7 +134,6 @@ const Contact = ({ t, isDarkMode }) => {
             ></textarea>
           </div>
 
-          {/* ប៊ូតុងបញ្ជូនសារ */}
           <button
             type="submit"
             disabled={loading}
