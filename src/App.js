@@ -3,8 +3,9 @@ import './App.css';
 
 // Components
 import Header from './components/Header';
+import Home from './components/Home';
 import Footer from './components/Footer';
-import BottomNav from './components/BottomNav';
+import BottomNav from './components/BottomNav'; // 👈 Import BottomNav ចូលទីនេះ
 
 // Sections
 import Hero from './sections/Hero';
@@ -34,7 +35,7 @@ function App() {
 
   return (
     <div
-      className={`App min-h-screen transition-colors duration-200 ${
+      className={`App min-h-screen transition-colors duration-200 pb-20 ${
         isDarkMode ? 'dark bg-black text-white' : 'bg-white text-black'
       } ${lang === 'ភាសាខ្មែរ' ? 'font-khmer' : 'font-sans'}`}
     >
@@ -47,39 +48,36 @@ function App() {
       />
 
       <main className="pt-16">
-        {/* Hero Section */}
         <section id="home">
+          <Home t={t} isDarkMode={isDarkMode} />
           <Hero t={t} isDarkMode={isDarkMode} lang={lang} />
         </section>
 
-        {/* About Section */}
         <section id="about">
           <About t={t} isDarkMode={isDarkMode} lang={lang} />
         </section>
         
-        {/* Skills Section */}
         <section id="skills">
           <Skills t={t} isDarkMode={isDarkMode} lang={lang} />
         </section>
         
-        {/* Education & Experience Section */}
         <section id="experience">
           <EducationExperience t={t} isDarkMode={isDarkMode} lang={lang} />
         </section>
 
-        {/* Projects Section */}
         <section id="projects">
           <Projects t={t} isDarkMode={isDarkMode} />
         </section>
 
-        {/* Contact Section */}
         <section id="contact">
           <Contact t={t} isDarkMode={isDarkMode} />
         </section>
       </main>
 
       <Footer t={t} isDarkMode={isDarkMode} lang={lang} />
-      <BottomNav t={t} isDarkMode={isDarkMode} />
+
+      {/* 👈 ហៅ BottomNav មកប្រើប្រាស់នៅទីនេះ (បង្ហាញសម្រាប់ទូរស័ព្ទដៃ) */}
+      <BottomNav t={t} isDarkMode={isDarkMode} lang={lang} />
     </div>
   );
 }

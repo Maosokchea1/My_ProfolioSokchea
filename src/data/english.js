@@ -1,12 +1,12 @@
 export const en = {
-  nav: [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Experience & Education", href: "#education-experience" },
-    { name: "Contact", href: "#contact" },
-  ],
+  nav: {
+    home: "Home",
+    about: "About",
+    skills: "Skills",
+    education: "Education",
+    projects: "Projects",
+    contact: "Contact"
+  },
   viewProjects: "View Projects",
   viewCv: "View CV",
   about: {
@@ -41,7 +41,7 @@ export const en = {
     messageLabel: "Your Message",
     messagePlaceholder: "Write your message here...",
     submitBtn: "Send Message",
-  }, // 👈 បានបន្ថែមសញ្ញាក្បៀស (,) នៅត្រង់នេះ
+  },
   footer: {
     description: "Thank you for visiting my personal portfolio website.",
     rights: "All rights reserved by Mao Sokchea",

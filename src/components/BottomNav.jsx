@@ -4,28 +4,40 @@ const icons = {
   '#home': <path d="M3 11.5 12 4l9 7.5M5.5 10v10h13V10M9.5 20v-6h5v6" />,
   '#about': <><circle cx="12" cy="8" r="3.5" /><path d="M5.5 20c.7-4 2.9-6 6.5-6s5.8 2 6.5 6" /></>,
   '#skills': <><path d="M8 9 4 12l4 3M16 9l4 3-4 3M14 5l-4 14" /></>,
-  '#projects': <><path d="M3.5 7.5h6l2 2h9v10h-17z" /><path d="M3.5 7.5v-3h7l2 3" /></>,
   '#education-experience': <><path d="m3 9 9-5 9 5-9 5z" /><path d="M7 12v4c2.8 2.2 7.2 2.2 10 0v-4M21 9v7" /></>,
+  '#projects': <><path d="M3.5 7.5h6l2 2h9v10h-17z" /><path d="M3.5 7.5v-3h7l2 3" /></>,
   '#contact': <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /></>,
 };
 
 const fallbackLabels = {
   '#home': 'Home', '#about': 'About', '#skills': 'Skills',
-  '#projects': 'Projects', '#education-experience': 'Education', '#contact': 'Contact',
+  '#education-experience': 'Education', '#projects': 'Projects', '#contact': 'Contact',
 };
 
 const shortKhmerLabels = {
   '#home': 'ទំព័រដើម', '#about': 'អំពីខ្ញុំ', '#skills': 'ជំនាញ',
-  '#projects': 'គម្រោង', '#education-experience': 'ការសិក្សា', '#contact': 'ទំនាក់ទំនង',
+  '#education-experience': 'ការសិក្សា', '#projects': 'គម្រោង', '#contact': 'ទំនាក់ទំនង',
 };
 
-const BottomNav = ({ t, isDarkMode }) => {
+const BottomNav = ({ t, isDarkMode, lang }) => {
   const [active, setActive] = useState('#home');
-  const links = t?.nav || Object.entries(fallbackLabels).map(([href, name]) => ({ href, name }));
-  const isKhmer = Boolean(t?.nav?.some(({ name }) => /[\u1780-\u17ff]/.test(name)));
+  const navHrefs = {
+    home: '#home', about: '#about', skills: '#skills', 
+    education: '#education-experience', projects: '#projects', contact: '#contact',
+  };
+  const links = Array.isArray(t?.nav)
+    ? t.nav
+    : Object.entries(t?.nav || {}).map(([key, name]) => ({
+        name,
+        href: navHrefs[key] || `#${key}`,
+      }));
+  const safeLinks = links.length
+    ? links
+    : Object.entries(fallbackLabels).map(([href, name]) => ({ href, name }));
+  const isKhmer = lang === 'ភាសាខ្មែរ';
 
   useEffect(() => {
-    const sections = links
+    const sections = safeLinks
       .map(({ href }) => document.getElementById(href.slice(1)))
       .filter(Boolean);
     const observer = new IntersectionObserver(
@@ -37,7 +49,7 @@ const BottomNav = ({ t, isDarkMode }) => {
     );
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, [links]);
+  }, [safeLinks]);
 
   return (
     <nav
@@ -46,7 +58,7 @@ const BottomNav = ({ t, isDarkMode }) => {
         isDarkMode ? 'border-zinc-800 bg-zinc-950/95' : 'border-zinc-200 bg-white/95'
       }`}
     >
-      {links.map(({ href, name }) => {
+      {safeLinks.map(({ href, name }) => {
         const isActive = active === href;
         return (
           <a

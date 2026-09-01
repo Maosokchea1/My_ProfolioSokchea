@@ -1,8 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('#home');
+  const navHrefs = {
+    home: '#home',
+    about: '#about',
+    skills: '#skills',
+    projects: '#projects',
+    education: '#education-experience',
+    contact: '#contact',
+  };
+  const navLinks = Array.isArray(t?.nav)
+    ? t.nav
+    : Object.entries(t?.nav || {}).map(([key, name]) => ({
+        name,
+        href: navHrefs[key] || `#${key}`,
+      }));
 
   const currentFontClass =
     lang === 'ភាសាខ្មែរ' || lang === 'Khmer'
@@ -123,8 +137,7 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex space-x-6" aria-label="Main Navigation">
-            {t?.nav &&
-              t.nav.map((link) => {
+            {navLinks.map((link) => {
                 const isActive = activeSection === link.href;
                 return (
                   <a
@@ -244,8 +257,7 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
             isDarkMode ? 'bg-black border-zinc-800' : 'bg-white border-zinc-200'
           }`}
         >
-          {t?.nav &&
-            t.nav.map((link) => {
+          {navLinks.map((link) => {
               const isActive = activeSection === link.href;
               return (
                 <a
