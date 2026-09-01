@@ -1,0 +1,152 @@
+import React, { useState } from 'react';
+
+const Contact = ({ t, isDarkMode }) => {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const BOT_TOKEN = '8869526479:AAGXGPEft8ru28qRUReb2XOCviiOor9LyEM';
+    const CHAT_ID = '1302983925'; 
+
+    const text = `📬 New message from Portfolio Website!\n\n👤 Name: ${formData.name}\n📧 Email: ${formData.email}\n💬 Message: ${formData.message}`;
+
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => {
+          setSubmitted(false);
+        }, 5000);
+      } else {
+        alert('Failed to send message to Telegram. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Network Error!');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <section
+      id="contact"
+      className={`py-24 transition-colors duration-200 ${
+        isDarkMode ? 'bg-black text-white' : 'bg-white text-black'
+      }`}
+    >
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+            {t?.contact?.title || 'Contact Me'}
+          </h2>
+          <p className={`mt-3 text-lg ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
+            {t?.contact?.subtitle || 'Feel free to get in touch with me by filling out the form below.'}
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className={`p-8 rounded-2xl border shadow-lg ${
+          isDarkMode ? 'bg-zinc-900 border-zinc-800' : 'bg-zinc-50 border-zinc-200'
+        }`}>
+          
+          {submitted && (
+            <div className="mb-6 p-4 rounded-lg bg-green-500/10 border border-green-500 text-green-500 text-center font-medium">
+              {t?.contact?.successMessage || 'Your message has been sent successfully! Thank you.'}
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                {t?.contact?.nameLabel || 'Your Name'}
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                placeholder={t?.contact?.namePlaceholder || 'John Doe'}
+                className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition-colors ${
+                  isDarkMode
+                    ? 'bg-zinc-800 border-zinc-700 text-white focus:border-primary'
+                    : 'bg-white border-zinc-300 text-black focus:border-primary'
+                }`}
+              />
+            </div>
+
+            <div>
+              <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
+                {t?.contact?.emailLabel || 'Your Email'}
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder={t?.contact?.emailPlaceholder || 'example@gmail.com'}
+                className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition-colors ${
+                  isDarkMode
+                    ? 'bg-zinc-800 border-zinc-700 text-white focus:border-primary'
+                    : 'bg-white border-zinc-300 text-black focus:border-primary'
+                }`}
+              />
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
+              {t?.contact?.messageLabel || 'Your Message'}
+            </label>
+            <textarea
+              name="message"
+              rows="5"
+              value={formData.message}
+              onChange={handleChange}
+              required
+              placeholder={t?.contact?.messagePlaceholder || 'Write your message here...'}
+              className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition-colors resize-none ${
+                isDarkMode
+                  ? 'bg-zinc-800 border-zinc-700 text-white focus:border-primary'
+                  : 'bg-white border-zinc-300 text-black focus:border-primary'
+              }`}
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 px-6 rounded-lg font-semibold text-white bg-primary hover:bg-primary-600 transition-colors shadow-md disabled:opacity-50"
+          >
+            {loading ? 'Sending...' : (t?.contact?.submitBtn || 'Send Message')}
+          </button>
+
+        </form>
+
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
