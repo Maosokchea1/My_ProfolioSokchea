@@ -84,12 +84,11 @@ const Projects = ({ t, isDarkMode }) => {
       live: '#',
     },
     {
-      // បានកែប្រែពី Task Management App មកដាក់ Website School ជាមួយ FastAPI & Python
+      // Website School (បានដក isComingSoon ចេញរួចរាល់ និងបានដាក់ចុះបន្ទាត់)
       title: 'Website School',
-      description:
-        'A comprehensive school management and educational platform built with React and Tailwind CSS, powered by a robust FastAPI (Python) backend for managing students, courses, and academic records.',
+      description: `A comprehensive school management and educational platform built with React and Tailwind CSS, powered by a robust FastAPI (Python) backend for managing students, courses, and academic records.
+Website school នេះកំពុងនៅអភិវឌ្ឍន៍ លើ backend and full-stack development និងមានមុខងារច្រើនដែលកំពុងត្រូវបានបង្កើត។ សូមរង់ចាំការបញ្ចប់នៃគម្រោងនេះ។`,
       imageUrl: websiteSchoolImg,
-      isComingSoon: true,
       tags: [
         { name: 'React', url: 'https://react.dev' },
         { name: 'Tailwind CSS', url: 'https://tailwindcss.com' },
@@ -97,7 +96,7 @@ const Projects = ({ t, isDarkMode }) => {
         { name: 'Python', url: 'https://www.python.org' },
       ],
       github: 'https://github.com/your-username/website-school',
-      live: '#',
+      live: 'https://websit-school-frontend-user.vercel.app/',
     },
   ];
 
@@ -182,7 +181,7 @@ const Projects = ({ t, isDarkMode }) => {
                 </h3>
 
                 <p
-                  className={`mt-2.5 text-sm leading-relaxed ${
+                  className={`mt-2.5 text-sm leading-relaxed whitespace-pre-line ${
                     isDarkMode ? 'text-zinc-400' : 'text-zinc-500'
                   }`}
                 >
