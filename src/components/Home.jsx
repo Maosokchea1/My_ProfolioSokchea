@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
-// 👈 Import រូបភាព Profile របស់អ្នកចូលមកទីនេះ
+// 👈 Import រូបភាព Profile
 import profileImage from '../assets/images/mypicture.JPG';
+// 👈 Import ហ្វាល CV ចូលមកទីនេះផ្ទាល់ ដើម្បីការពារបញ្ហា Path ពេល Deploy លើ GitHub Pages
+import cvPdf from '../assets/cv.pdf';
 
 const Home = ({ t, isDarkMode, lang }) => {
   const fullName = "Mao Sokchea";
@@ -81,9 +83,9 @@ const Home = ({ t, isDarkMode, lang }) => {
                 {t?.viewProjects || "View Projects"}
               </Button>
               
-              {/* 🛠 តភ្ជាប់ទៅកាន់ហ្វាល Front-end developer.pdf ក្នុង public folder ផ្ទាល់ */}
+              {/* 🛠 ប្រើប្រាស់ហ្វាល cvPdf ដែលបាន Import រួចជាស្រេច */}
               <a 
-                href="/Front-end%20developer.pdf" 
+                href={cvPdf} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={`px-6 py-3 rounded-xl font-medium border transition-all duration-300 flex items-center justify-center shadow-sm hover:-translate-y-0.5 ${
