@@ -81,9 +81,9 @@ const Home = ({ t, isDarkMode, lang }) => {
                 {t?.viewProjects || "View Projects"}
               </Button>
               
-              {/* 🛠 កែសម្រួលឈ្មោះហ្វាល PDF ឱ្យត្រូវគ្នាបេះបិទជាមួយក្នុង public folder */}
+              {/* 🛠 បានប្តូរមកប្រើឈ្មោះហ្វាល cv.pdf ដើម្បីការពារបញ្ហាដកឃ្លា និងអក្សរធំតូច */}
               <a 
-                href="/Front-end developer.pdf" 
+                href="/cv.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={`px-6 py-3 rounded-xl font-medium border transition-all duration-300 flex items-center justify-center shadow-sm hover:-translate-y-0.5 ${
