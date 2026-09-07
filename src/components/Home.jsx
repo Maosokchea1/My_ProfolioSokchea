@@ -16,28 +16,23 @@ const Home = ({ t, isDarkMode, lang }) => {
       const currentText = fullName;
 
       if (!isDeleting) {
-        // កំពុងបន្ថែមអក្សរម្តងមួយ
         setDisplayedName(currentText.substring(0, index + 1));
         index++;
 
-        // បើវាយចប់គ្រប់អក្សរ ឱ្យវាផ្អាកបន្តិចសិន ចាំចាប់ផ្តើមលុបវិញ
         if (index === currentText.length) {
           setTimeout(() => {
             isDeleting = true;
-          }, 1500); // រង់ចាំ ១.៥វិនាទីពេលវាយចប់
+          }, 1500);
         }
       } else {
-        // កំពុងលុបអក្សរចេញវិញ
         setDisplayedName(currentText.substring(0, index - 1));
         index--;
 
-        // បើលុបអស់ហើយ ឱ្យវារត់សារឡើងវិញពីដើម
         if (index === 0) {
           isDeleting = false;
         }
       }
 
-      // ល្បឿននៃការវាយ និងលុបអក្សរ (មីលីវិនាទី)
       const speed = isDeleting ? 100 : 150;
       timer = setTimeout(typeEffect, speed);
     };
@@ -74,7 +69,7 @@ const Home = ({ t, isDarkMode, lang }) => {
             </h1>
             
             <p className="text-xl lg:text-2xl font-semibold mb-6 text-primary">
-              {t?.welcomeTitle || "Full Stack Developer & Student"}
+              {t?.welcomeTitle || "Front-End Developer & Student"}
             </p>
             <p className={`text-lg lg:text-xl mb-8 leading-relaxed ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
               {t?.welcomeSubtitle || "I am a passionate developer dedicated to building modern, scalable, and user-friendly web applications."}
@@ -86,9 +81,9 @@ const Home = ({ t, isDarkMode, lang }) => {
                 {t?.viewProjects || "View Projects"}
               </Button>
               
-              {/* 🛠 កែសម្រួលត្រង់នេះឱ្យត្រូវនឹងឈ្មោះ File ក្នុង public folder */}
+              {/* 🛠 កែសម្រួលឈ្មោះហ្វាល PDF ឱ្យត្រូវគ្នាបេះបិទជាមួយក្នុង public folder */}
               <a 
-                href="/Front-End Developer.pdf" 
+                href="/Front-end developer.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={`px-6 py-3 rounded-xl font-medium border transition-all duration-300 flex items-center justify-center shadow-sm hover:-translate-y-0.5 ${
