@@ -81,9 +81,9 @@ const Home = ({ t, isDarkMode, lang }) => {
                 {t?.viewProjects || "View Projects"}
               </Button>
               
-              {/* 🛠 ប៊ូតុង View CV ដែលតភ្ជាប់ទៅកាន់ cv.pdf ក្នុង public folder */}
+              {/* 🛠 តភ្ជាប់ទៅកាន់ហ្វាល Front-end developer.pdf ក្នុង public folder ផ្ទាល់ */}
               <a 
-                href="/cv.pdf" 
+                href="/Front-end%20developer.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={`px-6 py-3 rounded-xl font-medium border transition-all duration-300 flex items-center justify-center shadow-sm hover:-translate-y-0.5 ${
