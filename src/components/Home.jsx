@@ -88,7 +88,7 @@ const Home = ({ t, isDarkMode, lang }) => {
               
               {/* 🛠 កែសម្រួលត្រង់នេះឱ្យត្រូវនឹងឈ្មោះ File ក្នុង public folder */}
               <a 
-                href="/Intern%20developer.pdf" 
+                href="/Front-End Developer.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={`px-6 py-3 rounded-xl font-medium border transition-all duration-300 flex items-center justify-center shadow-sm hover:-translate-y-0.5 ${
