@@ -81,7 +81,7 @@ const Home = ({ t, isDarkMode, lang }) => {
                 {t?.viewProjects || "View Projects"}
               </Button>
               
-              {/* 🛠 បានប្តូរមកប្រើឈ្មោះហ្វាល cv.pdf ដើម្បីការពារបញ្ហាដកឃ្លា និងអក្សរធំតូច */}
+              {/* 🛠 ប៊ូតុង View CV ដែលតភ្ជាប់ទៅកាន់ cv.pdf ក្នុង public folder */}
               <a 
                 href="/cv.pdf" 
                 target="_blank" 
