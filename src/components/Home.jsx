@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Button from './Button';
 // 👈 Import រូបភាព Profile
 import profileImage from '../assets/images/mypicture.JPG';
-// 👈 Import ហ្វាល CV ចូលមកទីនេះផ្ទាល់ ដើម្បីការពារបញ្ហា Path ពេល Deploy លើ GitHub Pages
-import cvPdf from '../assets/cv.pdf';
 
 const Home = ({ t, isDarkMode, lang }) => {
   const fullName = "Mao Sokchea";
@@ -83,9 +81,9 @@ const Home = ({ t, isDarkMode, lang }) => {
                 {t?.viewProjects || "View Projects"}
               </Button>
               
-              {/* 🛠 ប្រើប្រាស់ហ្វាល cvPdf ដែលបាន Import រួចជាស្រេច */}
+              {/* 🛠 កែប្រែ Path ឱ្យត្រូវទៅនឹងឈ្មោះហ្វាលថ្មីក្នុង public */}
               <a 
-                href={cvPdf} 
+                href="/cv.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={`px-6 py-3 rounded-xl font-medium border transition-all duration-300 flex items-center justify-center shadow-sm hover:-translate-y-0.5 ${

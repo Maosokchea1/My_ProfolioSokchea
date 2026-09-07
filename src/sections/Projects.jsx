@@ -73,7 +73,7 @@ const Projects = ({ t, isDarkMode }) => {
       description:
         'A responsive inventory dashboard system powered by Laravel backend, featuring real-time data tracking and secure database operations.',
       imageUrl: dashboardImg, 
-      isComingSoon: true,
+      // isComingSoon បានដកចេញរួចរាល់
       tags: [
         { name: 'Laravel', url: 'https://laravel.com' },
         { name: 'PHP', url: 'https://www.php.net' },
@@ -81,10 +81,9 @@ const Projects = ({ t, isDarkMode }) => {
         { name: 'Tailwind CSS', url: 'https://tailwindcss.com' },
       ],
       github: 'https://github.com/your-username/portfolio-dashboard',
-      live: '#',
+      live: 'https://larave-inventory-2.onrender.com',
     },
     {
-      // Website School (បានដក isComingSoon ចេញរួចរាល់ និងបានដាក់ចុះបន្ទាត់)
       title: 'Website School',
       description: `A comprehensive school management and educational platform built with React and Tailwind CSS, powered by a robust FastAPI (Python) backend for managing students, courses, and academic records.
 Website school នេះកំពុងនៅអភិវឌ្ឍន៍ លើ backend and full-stack development និងមានមុខងារច្រើនដែលកំពុងត្រូវបានបង្កើត។ សូមរង់ចាំការបញ្ចប់នៃគម្រោងនេះ។`,
