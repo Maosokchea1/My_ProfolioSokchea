@@ -7,6 +7,10 @@ export const km = {
     projects: "គម្រោង",
     contact: "ទំនាក់ទំនង"
   },
+  // 👈 បន្ថែមចំណងជើង និងអត្ថបទសម្រាប់ទំព័រដើម (Home) នៅត្រង់នេះ
+  welcomeTitle: "អ្នកអភិវឌ្ឍន៍ Frontend និង Backend API & និស្សិត",
+  welcomeSubtitle: "ខ្ញុំគឺជា Developer ដែលមានចំណង់ចំណូលចិត្តក្នុងការបង្កើត Web Applications ទំនើបៗ ដោយអាចសរសេរបានទាំង Frontend និង Backend API យ៉ាងស្ទាត់ជំនាញ។",
+  
   viewProjects: "មើលគម្រោង",
   viewCv: "មើល CV",
   about: {
@@ -21,7 +25,7 @@ export const km = {
   },
   projects: {
     title: "គម្រោងលេចធ្លោ",
-    subtitle: "นี่គឺជាគម្រោងមួយចំនួនដែលខ្ញុំបានអភិវឌ្ឍនាពេលថ្មីៗនេះ។",
+    subtitle: "ខាងក្រោមនេះគឺជាគម្រោងមួយចំនួនដែលខ្ញុំបានអភិវឌ្ឍនាពេលថ្មីៗនេះ។",
   },
   eduExp: {
     title: "ការសិក្សា និងបទពិសោធន៍",

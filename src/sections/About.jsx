@@ -2,15 +2,22 @@ import React from 'react';
 // 👈 Import រូបភាពចូលមកទីនេះ
 import aboutImage from '../assets/images/imageabout.png';
 
-
 const About = ({ t, isDarkMode, lang }) => {
-  // កំណត់ពុម្ពអក្សរតាមភាសា (ដូចទៅនឹង Header ដែរ)
+  // កំណត់ពុម្ពអក្សរតាមភាសា
   const currentFontClass =
     lang === 'ភាសាខ្មែរ' || lang === 'Khmer'
       ? 'font-khmer'
       : lang === 'සිංහල' || lang === 'Sinhala'
       ? 'font-sinhala'
       : 'font-sans';
+
+  const isKhmer = lang === 'ភាសាខ្មែរ' || lang === 'Khmer';
+
+  // អត្ថបទពិពណ៌នាដែលទាក់ទាញ និងបង្ហាញពីសមត្ថភាពពិតប្រាកដ
+  const aboutHeading = isKhmer ? "តើខ្ញុំជានរណា?" : (t.about?.heading || "Who am I?");
+  const aboutDescription = isKhmer
+    ? "ខ្ញុំគឺជា Developer ដែលមានចំណង់ចំណូលចិត្តខ្លាំងក្នុងការបង្កើត Web Applications ស្អាតៗ និងមានល្បឿនលឿន។ មិនត្រឹមតែជំនាញផ្នែក Frontend នោះទេ ខ្ញុំក៏មានសមត្ថភាពអាចសរសេរ Backend API និងភ្ជាប់ទិន្នន័យបានយ៉ាងស្ទាត់ជំនាញផងដែរ ដើម្បីធានាថាប្រព័ន្ធទាំងមូលដំណើរការបានល្អរលូន និងមានសុវត្ថិភាព។"
+    : (t.about?.description || "I am a passionate developer dedicated to building clean, user-friendly, and efficient web applications. With strong expertise in both Frontend and Backend API development, I love turning complex problems into simple, elegant, and scalable digital solutions.");
 
   return (
     <section
@@ -23,14 +30,14 @@ const About = ({ t, isDarkMode, lang }) => {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            {t.about?.title || "About Me"}
+            {t.about?.title || (isKhmer ? "អំពីខ្ញុំ" : "About Me")}
           </h2>
           <p
             className={`text-sm sm:text-base max-w-2xl mx-auto ${
               isDarkMode ? 'text-zinc-400' : 'text-zinc-600'
             }`}
           >
-            {t.about?.subtitle || "Get to know more about my background, skills, and experience."}
+            {t.about?.subtitle || (isKhmer ? "ស្វែងយល់បន្ថែមអំពីប្រវត្តិរូប ជំនាញ និងបទពិសោធន៍របស់ខ្ញុំ។" : "Get to know more about my background, technical skills, and experience.")}
           </p>
         </div>
 
@@ -43,7 +50,6 @@ const About = ({ t, isDarkMode, lang }) => {
                 isDarkMode ? 'bg-zinc-900 border-zinc-800' : 'bg-zinc-100 border-zinc-300'
               }`}
             >
-              {/* 👈 ដាក់បញ្ចូលស្លាក img ជាមួយរូបភាព aboutImage */}
               <img
                 src={aboutImage}
                 alt="About Me"
@@ -55,15 +61,14 @@ const About = ({ t, isDarkMode, lang }) => {
           {/* Right Side: Description */}
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold">
-              {t.about?.heading || "Who am I?"}
+              {aboutHeading}
             </h3>
             <p
               className={`text-base leading-relaxed ${
                 isDarkMode ? 'text-zinc-400' : 'text-zinc-600'
               }`}
             >
-              {t.about?.description || 
-                "I am a passionate developer dedicated to building clean, user-friendly, and efficient web applications. With a strong eye for design and performance, I love turning complex problems into simple and elegant solutions."}
+              {aboutDescription}
             </p>
 
             {/* Extra Info / Stats with Primary Accent */}
@@ -75,7 +80,7 @@ const About = ({ t, isDarkMode, lang }) => {
               >
                 <h4 className="text-2xl font-bold mb-1 text-primary">1+</h4>
                 <p className={`text-xs ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                  {t.about?.experience || "Years of Experience"}
+                  {isKhmer ? "ឆ្នាំបទពិសោធន៍" : (t.about?.experience || "Years of Experience")}
                 </p>
               </div>
               <div
@@ -83,9 +88,9 @@ const About = ({ t, isDarkMode, lang }) => {
                   isDarkMode ? 'border-zinc-800 bg-zinc-900/50' : 'border-zinc-200 bg-zinc-50'
                 }`}
               >
-                <h4 className="text-2xl font-bold mb-1 text-primary">2+ Coming soon 3 </h4>
+                <h4 className="text-2xl font-bold mb-1 text-primary">2 projects Done and  3 projects​​ ​​Under development keep going </h4>
                 <p className={`text-xs ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                  {t.about?.projects || "Completed Projects"}
+                  {isKhmer ? "គម្រោងបានបញ្ចប់" : (t.about?.projects || "Completed Projects")}
                 </p>
               </div>
             </div>

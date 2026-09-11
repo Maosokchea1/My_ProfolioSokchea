@@ -42,6 +42,20 @@ const Home = ({ t, isDarkMode, lang }) => {
     return () => clearTimeout(timer);
   }, []);
 
+  // 🛠 កែសម្រួលត្រង់នេះ៖ បន្ថែម 'km' ដើម្បីឱ្យវាចាប់បានទោះបីជាប្រព័ន្ធប្រើកូដ km ក៏ដោយ
+  const isKhmer = lang === 'ភាសាខ្មែរ' || lang === 'Khmer' || lang === 'km';
+  
+  const roleTitle = isKhmer 
+    ? "អ្នកអភិវឌ្ឍន៍ Frontend និង Backend API & និស្សិត" 
+    : (t?.welcomeTitle || "Full-Stack Developer & Student");
+
+  const roleSubtitle = isKhmer
+    ? "ខ្ញុំគឺជា Developer ដែលមានចំណង់ចំណូលចិត្តក្នុងការបង្កើត Web Applications ទំនើបៗ ដោយអាចសរសេរបានទាំង Frontend និង Backend API យ៉ាងស្ទាត់ជំនាញ។"
+    : (t?.welcomeSubtitle || "I am a passionate developer dedicated to building modern, scalable, and user-friendly web applications, capable of handling both frontend and backend APIs.");
+
+  const viewProjectsText = isKhmer ? "មើលគម្រោង" : (t?.viewProjects || "View Projects");
+  const viewCvText = isKhmer ? "មើល CV" : (t?.viewCv || "View CV");
+
   return (
     <section id="home" className={`py-24 transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-white text-gray-900'}`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -69,19 +83,18 @@ const Home = ({ t, isDarkMode, lang }) => {
             </h1>
             
             <p className="text-xl lg:text-2xl font-semibold mb-6 text-primary">
-              {t?.welcomeTitle || "Front-End Developer & Student"}
+              {roleTitle}
             </p>
             <p className={`text-lg lg:text-xl mb-8 leading-relaxed ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
-              {t?.welcomeSubtitle || "I am a passionate developer dedicated to building modern, scalable, and user-friendly web applications."}
+              {roleSubtitle}
             </p>
             
             {/* Action Buttons */}
             <div className="flex justify-center md:justify-start gap-4">
               <Button href="#projects" variant="primary">
-                {t?.viewProjects || "View Projects"}
+                {viewProjectsText}
               </Button>
               
-              {/* 🛠 កែប្រែ Path ឱ្យត្រូវទៅនឹងឈ្មោះហ្វាលថ្មីក្នុង public */}
               <a 
                 href="/cv.pdf" 
                 target="_blank" 
@@ -92,7 +105,7 @@ const Home = ({ t, isDarkMode, lang }) => {
                     : 'border-zinc-300 text-gray-900 hover:bg-gray-100 hover:border-zinc-400'
                 }`}
               >
-                {t?.viewCv || "View CV"}
+                {viewCvText}
               </a>
             </div>
           </div>
