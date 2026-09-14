@@ -1,7 +1,7 @@
 import React from 'react';
 import dashboardImg from '../assets/icons/image.png';
 import saleMovieImg from '../assets/Coming Soon/Sale_Moviec.png';
-import websiteSchoolImg from '../assets/Coming Soon/Website_School.png';
+import websiteSchoolImg from '../assets/Already/School.png';
 
 const Projects = ({ t, isDarkMode }) => {
   // មុខងារសម្រាប់ទាញយក URL រូបភាព SVG ទៅតាមឈ្មោះ Tech
