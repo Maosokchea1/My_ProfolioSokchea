@@ -13,7 +13,7 @@ const Contact = ({ t, isDarkMode }) => {
     e.preventDefault();
     setLoading(true);
 
-    const BOT_TOKEN = '8869526479:AAGXGPEft8ru28qRUReb2XOCviiOor9LyEM';
+    const BOT_TOKEN = '8238427766:AAHosmOVxtdASC0l9AOdJT25upMzPa7GLKA';
     const CHAT_ID = '1302983925'; 
 
     const text = `📬 New message from Portfolio Website!\n\n👤 Name: ${formData.name}\n📧 Email: ${formData.email}\n💬 Message: ${formData.message}`;
