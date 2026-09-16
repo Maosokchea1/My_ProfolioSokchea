@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
 // 👈 Import រូបភាព Profile
-import profileImage from '../assets/images/mypicture.JPG';
+import profileImage from '../assets/images/image.png';
 
 const Home = ({ t, isDarkMode, lang }) => {
   const fullName = "Mao Sokchea";
@@ -42,7 +42,6 @@ const Home = ({ t, isDarkMode, lang }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // 🛠 កែសម្រួលត្រង់នេះ៖ បន្ថែម 'km' ដើម្បីឱ្យវាចាប់បានទោះបីជាប្រព័ន្ធប្រើកូដ km ក៏ដោយ
   const isKhmer = lang === 'ភាសាខ្មែរ' || lang === 'Khmer' || lang === 'km';
   
   const roleTitle = isKhmer 
@@ -62,13 +61,17 @@ const Home = ({ t, isDarkMode, lang }) => {
         {/* Flex container with reverse: Content (Left) | Image (Right) */}
         <div className="flex flex-col-reverse md:flex-row-reverse items-center justify-center gap-12 lg:gap-20">
           
-          {/* Right Side: Profile Image */}
-          <div className="flex-shrink-0 mb-10 md:mb-0">
-            <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-primary shadow-2xl mx-auto">
+          {/* Right Side: Profile Image (Natural Look without borders) */}
+          <div className="flex-shrink-0 mb-10 md:mb-0 relative">
+            {/* Background Glow Effect (Optional soft blur) */}
+            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-primary/20 to-purple-500/20 opacity-50 blur-2xl"></div>
+            
+            {/* Image Container: Clean without border and padding box */}
+            <div className="relative w-64 h-64 lg:w-80 lg:h-80 rounded-3xl overflow-hidden shadow-lg mx-auto">
               <img 
                 src={profileImage} 
                 alt="Mao Sokchea" 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
           </div>
