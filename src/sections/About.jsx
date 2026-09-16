@@ -83,17 +83,25 @@ const About = ({ t, isDarkMode, lang }) => {
                   {isKhmer ? "ឆ្នាំបទពិសោធន៍" : (t.about?.experience || "Years of Experience")}
                 </p>
               </div>
+
+              {/* 🛠 កែសម្រួលត្រង់នេះ៖ បំបែកចំនួន និងសេចក្តីអធិប្បាយឱ្យមានរបៀប */}
               <div
                 className={`p-4 rounded-xl border transition-colors hover:border-primary ${
                   isDarkMode ? 'border-zinc-800 bg-zinc-900/50' : 'border-zinc-200 bg-zinc-50'
                 }`}
               >
-                <h4 className="text-2xl font-bold mb-1 text-primary">2 projects Done and  3 projects​​ ​​Under development keep going </h4>
+                <div className="flex items-baseline gap-2 mb-1">
+                  <span className="text-2xl font-bold text-primary">2+</span>
+                  <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${isDarkMode ? 'bg-primary/20 text-primary-300' : 'bg-primary/10 text-primary'}`}>
+                    {isKhmer ? "កំពុងអភិវឌ្ឍន៍ 3" : "3 in progress"}
+                  </span>
+                </div>
                 <p className={`text-xs ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                  {isKhmer ? "គម្រោងបានបញ្ចប់" : (t.about?.projects || "Completed Projects")}
+                  {isKhmer ? "គម្រោងបានបញ្ចប់" : "Completed Projects"}
                 </p>
               </div>
             </div>
+
           </div>
         </div>
       </div>
