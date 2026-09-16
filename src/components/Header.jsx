@@ -37,7 +37,6 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
       </svg>
     );
 
-  // កែសម្រួល Icon ឱ្យកាន់តែ Simple & Professional (ប្រើ strokeWidth="1.75")
   const getNavLinkIcon = (href, isActive) => {
     const iconClass = "w-4 h-4 stroke-current";
     
@@ -137,36 +136,36 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex space-x-6" aria-label="Main Navigation">
             {navLinks.map((link) => {
-                const isActive = activeSection === link.href;
-                return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setActiveSection(link.href)}
-                    className={`group flex items-center gap-2 text-sm font-medium py-2 transition-colors ${
-                      isActive
-                        ? 'text-primary'
-                        : isDarkMode
-                          ? 'text-zinc-300 hover:text-primary'
-                          : 'text-zinc-700 hover:text-primary'
-                    }`}
-                  >
-                    {getNavLinkIcon(link.href, isActive)}
-                    <span>{link.name}</span>
-                  </a>
-                );
-              })}
+              const isActive = activeSection === link.href;
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setActiveSection(link.href)}
+                  className={`group flex items-center gap-2 text-sm font-medium py-2 transition-colors ${
+                    isActive
+                      ? 'text-primary'
+                      : isDarkMode
+                        ? 'text-zinc-300 hover:text-primary'
+                        : 'text-zinc-700 hover:text-primary'
+                  }`}
+                >
+                  {getNavLinkIcon(link.href, isActive)}
+                  <span>{link.name}</span>
+                </a>
+              );
+            })}
           </nav>
 
-          {/* Desktop Controls */}
-          <div className="hidden lg:flex items-center space-x-3">
+          {/* Desktop Controls (Border ដកចេញ ជំនួសដោយ Background ស្រទន់ពេល Hover) */}
+          <div className="hidden lg:flex items-center space-x-2">
             <button
               onClick={toggleTheme}
               type="button"
-              className={`flex items-center justify-center p-2.5 rounded-lg border transition-all shadow-sm ${
+              className={`flex items-center justify-center p-2.5 rounded-xl transition-all ${
                 isDarkMode
-                  ? 'bg-zinc-900 border-zinc-700 text-zinc-300 hover:text-primary hover:border-primary'
-                  : 'bg-zinc-100 border-zinc-300 text-zinc-600 hover:text-primary hover:border-primary'
+                  ? 'text-zinc-300 hover:text-primary hover:bg-zinc-900'
+                  : 'text-zinc-600 hover:text-primary hover:bg-zinc-100'
               }`}
               aria-label="Toggle theme"
             >
@@ -176,10 +175,10 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
             <button
               onClick={toggleLanguage}
               type="button"
-              className={`flex items-center gap-2 text-sm font-semibold px-3.5 py-2 rounded-lg border transition-all shadow-sm ${
+              className={`flex items-center gap-2 text-sm font-semibold px-3.5 py-2 rounded-xl transition-all ${
                 isDarkMode
-                  ? 'border-zinc-700 bg-zinc-900 text-zinc-300 hover:text-primary hover:border-primary'
-                  : 'border-zinc-300 bg-zinc-100 text-zinc-700 hover:text-primary hover:border-primary'
+                  ? 'text-zinc-300 hover:text-primary hover:bg-zinc-900'
+                  : 'text-zinc-700 hover:text-primary hover:bg-zinc-100'
               }`}
               aria-label="Toggle language"
             >
@@ -192,15 +191,15 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center space-x-2 lg:hidden">
+          {/* Mobile Menu Button (Border ដកចេញដូចគ្នា) */}
+          <div className="flex items-center space-x-1 lg:hidden">
             <button
               onClick={toggleTheme}
               type="button"
-              className={`p-2 rounded-lg border transition-all shadow-sm ${
+              className={`p-2 rounded-xl transition-all ${
                 isDarkMode
-                  ? 'bg-zinc-900 border-zinc-700 text-zinc-300'
-                  : 'bg-zinc-100 border-zinc-300 text-zinc-600'
+                  ? 'text-zinc-300 hover:text-primary hover:bg-zinc-900'
+                  : 'text-zinc-600 hover:text-primary hover:bg-zinc-100'
               }`}
               aria-label="Toggle theme"
             >
@@ -210,10 +209,10 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
             <button
               onClick={toggleLanguage}
               type="button"
-              className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-md border transition-all shadow-sm ${
+              className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-xl transition-all ${
                 isDarkMode
-                  ? 'border-zinc-700 bg-zinc-900 text-zinc-300'
-                  : 'border-zinc-300 bg-zinc-100 text-zinc-700'
+                  ? 'text-zinc-300 hover:text-primary hover:bg-zinc-900'
+                  : 'text-zinc-700 hover:text-primary hover:bg-zinc-100'
               }`}
               aria-label="Toggle language"
             >
@@ -228,10 +227,10 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className={`p-2 rounded-lg border transition-all shadow-sm ${
+              className={`p-2 rounded-xl transition-all ${
                 isDarkMode 
-                  ? 'bg-zinc-900 border-zinc-700 text-zinc-300 hover:text-primary hover:border-primary' 
-                  : 'bg-zinc-100 border-zinc-300 text-zinc-700 hover:text-primary hover:border-primary'
+                  ? 'text-zinc-300 hover:text-primary hover:bg-zinc-900' 
+                  : 'text-zinc-700 hover:text-primary hover:bg-zinc-100'
               }`}
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
@@ -255,28 +254,28 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
           }`}
         >
           {navLinks.map((link) => {
-              const isActive = activeSection === link.href;
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => {
-                    setActiveSection(link.href);
-                    setIsOpen(false);
-                  }}
-                  className={`flex items-center gap-3 font-medium text-base py-2 px-3 rounded-lg transition-all ${
-                    isActive
-                      ? 'text-primary'
-                      : isDarkMode 
-                        ? 'text-zinc-300 hover:text-primary' 
-                        : 'text-zinc-700 hover:text-primary'
-                  }`}
-                >
-                  {getNavLinkIcon(link.href, isActive)}
-                  <span>{link.name}</span>
-                </a>
-              );
-            })}
+            const isActive = activeSection === link.href;
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => {
+                  setActiveSection(link.href);
+                  setIsOpen(false);
+                }}
+                className={`flex items-center gap-3 font-medium text-base py-2 px-3 rounded-lg transition-all ${
+                  isActive
+                    ? 'text-primary'
+                    : isDarkMode 
+                      ? 'text-zinc-300 hover:text-primary' 
+                      : 'text-zinc-700 hover:text-primary'
+                }`}
+              >
+                {getNavLinkIcon(link.href, isActive)}
+                <span>{link.name}</span>
+              </a>
+            );
+          })}
         </div>
       )}
     </header>
