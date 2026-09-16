@@ -115,7 +115,7 @@ const Projects = ({ t, isDarkMode }) => {
               isDarkMode ? 'bg-indigo-500/10 text-indigo-400' : 'bg-indigo-50 text-indigo-600'
             }`}
           >
-            {t?.projects?.badge || 'Portfolio'}
+            {t?.projects?.badge || 'Mao sokchea'}
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
             {t?.projects?.title || 'Featured Projects'}

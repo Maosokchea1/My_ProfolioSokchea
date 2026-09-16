@@ -10,26 +10,26 @@ const Footer = ({ t, isDarkMode, lang }) => {
 
   return (
     <footer
-      className={`border-t transition-colors duration-200 ${currentFontClass} ${
+      className={`relative border-t transition-colors duration-300 ${currentFontClass} ${
         isDarkMode
-          ? 'bg-zinc-950/80 backdrop-blur-md border-zinc-800/80 text-zinc-400'
-          : 'bg-zinc-50/80 backdrop-blur-md border-zinc-200/85 text-zinc-600'
+          ? 'bg-gradient-to-b from-zinc-950 via-zinc-900 to-indigo-950/40 border-zinc-800 text-zinc-300'
+          : 'bg-gradient-to-b from-zinc-100 via-indigo-50/50 to-purple-50/60 border-zinc-200 text-zinc-700 shadow-sm'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           
           {/* Logo & Brief Description */}
-          <div className="space-y-1.5 text-center md:text-left">
+          <div className="space-y-2 text-center md:text-left">
             <a 
               href="#home" 
-              className={`text-xl font-bold tracking-tight inline-block transition-opacity hover:opacity-80 ${
-                isDarkMode ? 'text-white' : 'text-black'
+              className={`text-2xl font-black tracking-tight inline-block transition-opacity hover:opacity-80 ${
+                isDarkMode ? 'text-white' : 'text-zinc-900'
               }`}
             >
-              PORTFOLIO<span className="text-sky-400">.</span>
+              Mao Sokchea<span className="text-indigo-600 dark:text-indigo-400">.</span>
             </a>
-            <p className="text-xs sm:text-sm max-w-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-xs sm:text-sm max-w-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
               {t?.footer?.description || (lang === 'ភាសាខ្មែរ' || lang === 'Khmer' 
                 ? 'អរគុណសម្រាប់ការទស្សនា Portfolio របស់ខ្ញុំ។' 
                 : 'Thank you for visiting my personal portfolio website.')}
@@ -37,19 +37,19 @@ const Footer = ({ t, isDarkMode, lang }) => {
           </div>
 
           {/* Social Media Links & Copyright */}
-          <div className="flex flex-col items-center md:items-end space-y-3">
+          <div className="flex flex-col items-center md:items-end space-y-4">
             
-            {/* Social Icons - Solid Blue on Hover */}
-            <div className="flex items-center space-x-2.5">
+            {/* Social Icons - Vivid Brand Colors */}
+            <div className="flex items-center space-x-3">
               {/* Facebook */}
               <a 
                 href="https://www.facebook.com/share/1LY2EmEAp7/?mibextid=wwXIfr" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={`p-2.5 rounded-xl border transition-all duration-200 ${
+                className={`p-2.5 rounded-2xl border transition-all duration-300 transform hover:-translate-y-1 ${
                   isDarkMode 
-                    ? 'border-zinc-800 bg-zinc-900/50 text-zinc-400 hover:bg-sky-500 hover:text-white hover:border-sky-500' 
-                    : 'border-zinc-200 bg-white text-zinc-500 hover:bg-sky-500 hover:text-white hover:border-sky-500 shadow-2xs'
+                    ? 'border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] hover:shadow-lg hover:shadow-[#1877F2]/30' 
+                    : 'border-zinc-200 bg-white/80 backdrop-blur-sm text-zinc-700 hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] hover:shadow-lg hover:shadow-[#1877F2]/30'
                 }`}
                 aria-label="Facebook"
               >
@@ -63,10 +63,10 @@ const Footer = ({ t, isDarkMode, lang }) => {
                 href="https://t.me/sokcheamoa" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={`p-2.5 rounded-xl border transition-all duration-200 ${
+                className={`p-2.5 rounded-2xl border transition-all duration-300 transform hover:-translate-y-1 ${
                   isDarkMode 
-                    ? 'border-zinc-800 bg-zinc-900/50 text-zinc-400 hover:bg-sky-500 hover:text-white hover:border-sky-500' 
-                    : 'border-zinc-200 bg-white text-zinc-500 hover:bg-sky-500 hover:text-white hover:border-sky-500 shadow-2xs'
+                    ? 'border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:bg-[#229ED9] hover:text-white hover:border-[#229ED9] hover:shadow-lg hover:shadow-[#229ED9]/30' 
+                    : 'border-zinc-200 bg-white/80 backdrop-blur-sm text-zinc-700 hover:bg-[#229ED9] hover:text-white hover:border-[#229ED9] hover:shadow-lg hover:shadow-[#229ED9]/30'
                 }`}
                 aria-label="Telegram"
               >
@@ -80,10 +80,10 @@ const Footer = ({ t, isDarkMode, lang }) => {
                 href="https://instagram.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={`p-2.5 rounded-xl border transition-all duration-200 ${
+                className={`p-2.5 rounded-2xl border transition-all duration-300 transform hover:-translate-y-1 ${
                   isDarkMode 
-                    ? 'border-zinc-800 bg-zinc-900/50 text-zinc-400 hover:bg-sky-500 hover:text-white hover:border-sky-500' 
-                    : 'border-zinc-200 bg-white text-zinc-500 hover:bg-sky-500 hover:text-white hover:border-sky-500 shadow-2xs'
+                    ? 'border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] hover:shadow-lg hover:shadow-[#E4405F]/30' 
+                    : 'border-zinc-200 bg-white/80 backdrop-blur-sm text-zinc-700 hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] hover:shadow-lg hover:shadow-[#E4405F]/30'
                 }`}
                 aria-label="Instagram"
               >
@@ -94,11 +94,11 @@ const Footer = ({ t, isDarkMode, lang }) => {
             </div>
 
             {/* Copyright & Built with */}
-            <div className="text-center md:text-right text-xs space-y-0.5 text-zinc-500">
+            <div className="text-center md:text-right text-xs space-y-1 font-medium text-zinc-700 dark:text-zinc-300">
               <p>
-                &copy; {new Date().getFullYear()} PORTFOLIO. {t?.footer?.rights || 'All rights reserved.'}
+                &copy; {new Date().getFullYear()} Mao Sokchea. {t?.footer?.rights || 'All rights reserved.'}
               </p>
-              <p className="text-zinc-400 dark:text-zinc-500">
+              <p className="text-indigo-600 dark:text-indigo-400 font-semibold">
                 {t?.footer?.builtWith || 'Built with React & Tailwind CSS'}
               </p>
             </div>
