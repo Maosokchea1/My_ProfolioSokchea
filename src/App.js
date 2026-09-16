@@ -20,8 +20,11 @@ import { en } from './data/english';
 import { km } from './data/khmer'; 
 
 function App() {
-  const [lang, setLang] = useState('English');
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  // 👇 កែត្រង់នេះ៖ ឱ្យចាប់ផ្តើមដំបូងជាភាសាខ្មែរ
+  const [lang, setLang] = useState('ភាសាខ្មែរ');
+  
+  // 👇 កែត្រង់នេះ៖ ឱ្យចាប់ផ្តើមដំបូងជា Light Mode (false = ពណ៌ស)
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const t = lang === 'English' ? en : km;
 
@@ -49,7 +52,7 @@ function App() {
 
       <main className="pt-16">
         <section id="home">
-          <Home t={t} isDarkMode={isDarkMode} />
+          <Home t={t} isDarkMode={isDarkMode} lang={lang} />
           <Hero t={t} isDarkMode={isDarkMode} lang={lang} />
         </section>
 
