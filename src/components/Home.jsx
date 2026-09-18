@@ -53,7 +53,6 @@ const Home = ({ t, isDarkMode, lang }) => {
     : (t?.welcomeSubtitle || "I am a passionate developer dedicated to building modern, scalable, and user-friendly web applications, capable of handling both frontend and backend APIs.");
 
   const viewProjectsText = isKhmer ? "មើលគម្រោង" : (t?.viewProjects || "View Projects");
-  const viewCvText = isKhmer ? "មើល CV" : (t?.viewCv || "View CV");
 
   return (
     <section id="home" className={`py-24 transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-white text-gray-900'}`}>
@@ -97,19 +96,6 @@ const Home = ({ t, isDarkMode, lang }) => {
               <Button href="#projects" variant="primary">
                 {viewProjectsText}
               </Button>
-              
-              <a 
-                href="/cv.pdf" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={`px-6 py-3 rounded-xl font-medium border transition-all duration-300 flex items-center justify-center shadow-sm hover:-translate-y-0.5 ${
-                  isDarkMode 
-                    ? 'border-zinc-700 text-white hover:bg-zinc-800 hover:border-zinc-600' 
-                    : 'border-zinc-300 text-gray-900 hover:bg-gray-100 hover:border-zinc-400'
-                }`}
-              >
-                {viewCvText}
-              </a>
             </div>
           </div>
 
