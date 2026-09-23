@@ -7,6 +7,7 @@ export const en = {
     projects: "Projects",
     contact: "Contact"
   },
+  
   viewProjects: "View Projects",
   viewCv: "View CV",
   about: {
