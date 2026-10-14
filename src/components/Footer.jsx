@@ -93,13 +93,10 @@ const Footer = ({ t, isDarkMode, lang }) => {
               </a>
             </div>
 
-            {/* Copyright & Built with */}
-            <div className="text-center md:text-right text-xs space-y-1 font-medium text-zinc-700 dark:text-zinc-300">
+            {/* Copyright */}
+            <div className="text-center md:text-right text-xs font-medium text-zinc-700 dark:text-zinc-300">
               <p>
                 &copy; {new Date().getFullYear()} Mao Sokchea. {t?.footer?.rights || 'All rights reserved.'}
-              </p>
-              <p className="text-indigo-600 dark:text-indigo-400 font-semibold">
-                {t?.footer?.builtWith || 'Built with React & Tailwind CSS'}
               </p>
             </div>
 

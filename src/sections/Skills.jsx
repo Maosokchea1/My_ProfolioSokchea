@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 const Skills = ({ t, isDarkMode, lang }) => {
-  const currentFontClass =
-    lang === 'ភាសាខ្មែរ' || lang === 'Khmer' ? 'font-khmer' : 'font-sans';
+  const isKhmer = lang === 'ភាសាខ្មែរ' || lang === 'Khmer' || lang === 'km';
+  const currentFontClass = isKhmer ? 'font-khmer' : 'font-sans';
 
   // State សម្រាប់កំណត់ប្រភេទដែលត្រូវបង្ហាញ ("all" ឬឈ្មោះ category)
   const [activeCategory, setActiveCategory] = useState('all');
@@ -65,24 +65,13 @@ const Skills = ({ t, isDarkMode, lang }) => {
       category: "Backend", 
       iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" 
     },
-    { 
-      name: "Node.js", 
-      level: "70%", 
-      category: "Backend", 
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" 
-    },
+  
     // Databases
     { 
       name: "MySQL", 
       level: "80%", 
       category: "Database", 
       iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" 
-    },
-    { 
-      name: "MongoDB", 
-      level: "70%", 
-      category: "Database", 
-      iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" 
     },
     { 
       name: "PostgreSQL", 
@@ -141,7 +130,7 @@ const Skills = ({ t, isDarkMode, lang }) => {
     }
   ];
 
-  // បញ្ជីប៊ូតុងសម្រាប់ចុចជ្រើសរើសប្រភេទ (Filter Tabs)
+  // ប៊ូតុង Filter៖ រក្សាពាក្យបច្ចេកទេស ៤ ខាងក្រោមជា English សុទ្ធ
   const categories = [
     { 
       id: 'all', 
@@ -150,22 +139,22 @@ const Skills = ({ t, isDarkMode, lang }) => {
     },
     { 
       id: 'Frontend', 
-      labelKh: 'ហ្វ្រុនអិន (Frontend)', 
+      labelKh: 'Frontend', 
       labelEn: 'Frontend' 
     },
     { 
       id: 'Backend', 
-      labelKh: 'បែកអិន និងហ្វ្រេមវើក', 
+      labelKh: 'Backend & Frameworks', 
       labelEn: 'Backend & Frameworks' 
     },
     { 
       id: 'Database', 
-      labelKh: 'មូលដ្ឋានទិន្នន័យ (Database)', 
+      labelKh: 'Databases', 
       labelEn: 'Databases' 
     },
     { 
       id: 'Tools', 
-      labelKh: 'ឧបករណ៍ និងកម្មវិធី', 
+      labelKh: 'Tools & Software', 
       labelEn: 'Tools & Software' 
     }
   ];
@@ -222,12 +211,12 @@ const Skills = ({ t, isDarkMode, lang }) => {
         {/* Section Header */}
         <div className="text-center mb-8">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            {lang === 'ភាសាខ្មែរ' || lang === 'Khmer' ? 'ជំនាញរបស់ខ្ញុំ' : 'My Skills'}
+            {isKhmer ? 'ជំនាញរបស់ខ្ញុំ' : (t?.mySkills || 'My Skills')}
           </h2>
           <p className={`text-sm sm:text-base max-w-xl mx-auto ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
-            {lang === 'ភាសាខ្មែរ' || lang === 'Khmer' 
-              ? 'បច្ចេកវិទ្យា មូលដ្ឋានទិន្នន័យ និងកម្មវិធីឧបករណ៍ដែលខ្ញុំប្រើប្រាស់ក្នុងការអភិវឌ្ឍន៍។' 
-              : 'Core technologies, databases, and software tools I use to build robust applications.'}
+            {isKhmer 
+              ? 'បច្ចេកវិទ្យាស្នូល មូលដ្ឋានទិន្នន័យ និងឧបករណ៍កម្មវិធីដែលខ្ញុំប្រើប្រាស់ក្នុងការបង្កើតគម្រោង។' 
+              : (t?.skillsSubtitle || 'Core technologies, databases, and software tools I use to build robust applications.')}
           </p>
         </div>
 
@@ -247,7 +236,7 @@ const Skills = ({ t, isDarkMode, lang }) => {
                     : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 hover:text-black border border-zinc-200'
                 }`}
               >
-                {lang === 'ភាសាខ្មែរ' || lang === 'Khmer' ? cat.labelKh : cat.labelEn}
+                {isKhmer ? cat.labelKh : cat.labelEn}
               </button>
             );
           })}
@@ -257,14 +246,14 @@ const Skills = ({ t, isDarkMode, lang }) => {
       {/* Skills Content Area */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {activeCategory === 'all' ? (
-          /* Circular Rotation (វិលជុំ) Effect when "All" is selected */
+          /* Circular Rotation Effect when "All" is selected */
           <div className="relative w-full h-[520px] sm:h-[640px] flex items-center justify-center">
-            {/* Center core placeholder or logo title */}
+            {/* Center core */}
             <div className={`absolute z-10 w-28 h-28 sm:w-36 sm:h-36 rounded-full border flex items-center justify-center text-center p-4 shadow-xl ${
               isDarkMode ? 'bg-zinc-900 border-zinc-800 text-zinc-200' : 'bg-white border-zinc-200 text-zinc-800'
             }`}>
               <span className="text-xs sm:text-sm font-bold">
-                {lang === 'ភាសាខ្មែរ' || lang === 'Khmer' ? 'ជំនាញទាំងអស់' : 'All Skills'}
+                {isKhmer ? 'ជំនាញទាំងអស់' : 'All Skills'}
               </span>
             </div>
 
@@ -272,11 +261,10 @@ const Skills = ({ t, isDarkMode, lang }) => {
             <div className="absolute w-[360px] h-[360px] sm:w-[560px] sm:h-[560px] animate-orbit">
               {skillsList.map((skill, index) => {
                 const angle = (index / skillsList.length) * 360;
-                const radius = 210; // ចម្ងាយពីកណ្តាល (Radius for desktop)
+                const radius = 210;
                 const rad = (angle * Math.PI) / 180;
-                // កូអរដោនេ X និង Y សម្រាប់តម្រៀបជារង្វង់
-                const x = Math.cos(rad) * (window.innerWidth < 640 ? 130 : radius);
-                const y = Math.sin(rad) * (window.innerWidth < 640 ? 130 : radius);
+                const x = Math.cos(rad) * (typeof window !== 'undefined' && window.innerWidth < 640 ? 130 : radius);
+                const y = Math.sin(rad) * (typeof window !== 'undefined' && window.innerWidth < 640 ? 130 : radius);
 
                 return (
                   <div
