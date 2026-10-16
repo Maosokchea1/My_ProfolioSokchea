@@ -2,6 +2,7 @@ import React from 'react';
 import dashboardImg from '../assets/icons/image.png';
 import saleMovieImg from '../assets/Coming Soon/Sale_Moviec.png';
 import websiteSchoolImg from '../assets/Already/School.png';
+import SaleShopImg from '../assets/Already/Sale_Shop.png'; // ✅ កែ path មក 'Already' វិញ
 
 const Projects = ({ t, isDarkMode }) => {
   // មុខងារសម្រាប់ទាញយក URL រូបភាព SVG ទៅតាមឈ្មោះ Tech
@@ -84,8 +85,10 @@ const Projects = ({ t, isDarkMode }) => {
     },
     {
       title: 'Website School',
-      description: 'A comprehensive school management and educational platform built with React and Tailwind CSS, powered by a robust FastAPI backend.',
-      notice: 'Website school នេះកំពុងស្ថិតក្នុងការអភិវឌ្ឍន៍ (In Development) លើផ្នែក Backend & Full-stack និងមានមុខងារជាច្រើនទៀតកំពុងត្រូវបានបង្កើត។ សូមរង់ចាំតាមដានទាំងអស់គ្នា!',
+      description:
+        'A comprehensive school management and educational platform built with React and Tailwind CSS, powered by a robust FastAPI backend.',
+      notice:
+        'Website school នេះកំពុងស្ថិតក្នុងការអភិវឌ្ឍន៍ (In Development) លើផ្នែក Backend & Full-stack និងមានមុខងារជាច្រើនទៀតកំពុងត្រូវបានបង្កើត។ សូមរង់ចាំតាមដានទាំងអស់គ្នា!',
       imageUrl: websiteSchoolImg,
       tags: [
         { name: 'React', url: 'https://react.dev' },
@@ -95,6 +98,24 @@ const Projects = ({ t, isDarkMode }) => {
       ],
       github: 'https://github.com/your-username/website-school',
       live: 'https://websit-school-frontend-user.vercel.app/',
+    },
+    {
+      title: 'Sale Shop',
+      description:
+        'A modern e-commerce shop platform built with React and Tailwind CSS on the frontend, powered by a robust Laravel REST API backend with MySQL database, featuring secure authentication, product management, and order processing.',
+      notice:
+        'Sale Shop នេះកំពុងស្ថិតក្នុងការអភិវឌ្ឍន៍ (In Development) លើផ្នែក Backend & Full-stack ជាមួយ Laravel API និងមានមុខងារជាច្រើនទៀតកំពុងត្រូវបានបង្កើត។ សូមរង់ចាំតាមដានទាំងអស់គ្នា!',
+      imageUrl: SaleShopImg,
+      // isComingSoon: true, // ❌ លុបចេញ ព្រោះរូបភាពនៅក្នុង folder "Already"
+      tags: [
+        { name: 'React', url: 'https://react.dev' },
+        { name: 'Tailwind CSS', url: 'https://tailwindcss.com' },
+        { name: 'Laravel', url: 'https://laravel.com' },
+        { name: 'PHP', url: 'https://www.php.net' },
+        { name: 'MySQL', url: 'https://www.mysql.com' },
+      ],
+      github: 'https://github.com/your-username/sale-shop',
+      live: 'https://sale-shop-swart.vercel.app/',
     },
   ];
 
@@ -238,7 +259,7 @@ const Projects = ({ t, isDarkMode }) => {
                 >
                   {project.isComingSoon ? 'In Development' : (t?.projects?.cta || 'View Project')}
                 </span>
-                
+
                 <div className="flex items-center gap-2">
                   <a
                     href={project.github}
