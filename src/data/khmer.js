@@ -41,7 +41,7 @@ export const km = {
     subtitle: "មានសំណួរ ចង់ពិភាក្សាគម្រោង ឬចង់សហការការងារ? ផ្ញើសារមកខ្ញុំបានគ្រប់ពេល!",
     successMessage: "សាររបស់អ្នកត្រូវបានបញ្ជូនដោយជោគជ័យទៅកាន់ Telegram! អរគុណ។",
     nameLabel: "ឈ្មោះរបស់អ្នក",
-    namePlaceholder: "សុកជា / Sokchea",
+    namePlaceholder: "ម៉ៅ សុខជា / Mao Sokchea",
     emailLabel: "អ៊ីមែលរបស់អ្នក",
     emailPlaceholder: "example@gmail.com",
     messageLabel: "សាររបស់អ្នក",
