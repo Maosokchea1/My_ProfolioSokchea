@@ -1,105 +1,112 @@
 import React from 'react';
 
 const Footer = ({ t, isDarkMode, lang }) => {
-  const currentFontClass =
-    lang === 'ភាសាខ្មែរ' || lang === 'Khmer'
-      ? 'font-khmer'
-      : lang === 'සිංහල' || lang === 'Sinhala'
-      ? 'font-sinhala'
-      : 'font-sans';
+  const isKhmer = lang === 'ភាសាខ្មែរ' || lang === 'Khmer' || lang === 'km';
+  const currentFontClass = isKhmer ? 'font-khmer' : 'font-sans';
+
+  // បណ្តុំ Social Links ជាមួយ Icon SVG URL ផ្លូវការដែលមានពណ៌ស្រាប់ (Official Colored SVGs)
+  const socialLinks = [
+    {
+      name: 'Telegram',
+      url: 'https://t.me/sokcheamoa',
+      // SVG ពណ៌ខៀវផ្ទៃមេឃផ្លូវការរបស់ Telegram
+      iconUrl: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/telegram.svg',
+      badgeClass: 'text-[#229ED9] bg-[#229ED9]/10 border-[#229ED9]/30 hover:bg-[#229ED9] hover:text-white',
+    },
+    {
+      name: 'GitHub',
+      url: 'https://github.com/sokcheamoa',
+      // SVG Logo របស់ GitHub ផ្លូវការ
+      iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg',
+      badgeClass: isDarkMode
+        ? 'text-white bg-zinc-800/80 border-zinc-700 hover:bg-white hover:text-black'
+        : 'text-zinc-900 bg-zinc-100 border-zinc-300 hover:bg-zinc-900 hover:text-white',
+    },
+    {
+      name: 'Facebook',
+      url: 'https://www.facebook.com/share/1LY2EmEAp7/?mibextid=wwXIfr',
+      // SVG ពណ៌ខៀវផ្លូវការរបស់ Facebook
+      iconUrl: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/facebook.svg',
+      badgeClass: 'text-[#1877F2] bg-[#1877F2]/10 border-[#1877F2]/30 hover:bg-[#1877F2] hover:text-white',
+    },
+  ];
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer
-      className={`relative border-t transition-colors duration-300 ${currentFontClass} ${
+      className={`border-t py-12 transition-colors duration-200 ${currentFontClass} ${
         isDarkMode
-          ? 'bg-gradient-to-b from-zinc-950 via-zinc-900 to-indigo-950/40 border-zinc-800 text-zinc-300'
-          : 'bg-gradient-to-b from-zinc-100 via-indigo-50/50 to-purple-50/60 border-zinc-200 text-zinc-700 shadow-sm'
+          ? 'bg-[#08080a] border-zinc-800/80 text-zinc-400'
+          : 'bg-zinc-50 border-zinc-200 text-zinc-600'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           
-          {/* Logo & Brief Description */}
-          <div className="space-y-2 text-center md:text-left">
+          {/* Logo & Description */}
+          <div className="text-center sm:text-left">
             <a 
               href="#home" 
-              className={`text-2xl font-black tracking-tight inline-block transition-opacity hover:opacity-80 ${
+              className={`text-xl font-extrabold tracking-tight inline-block cursor-pointer select-none transform active:scale-95 transition-all duration-150 ${
                 isDarkMode ? 'text-white' : 'text-zinc-900'
               }`}
             >
-              Mao Sokchea<span className="text-indigo-600 dark:text-indigo-400">.</span>
+              Mao Sokchea<span className="text-primary">.</span>
             </a>
-            <p className="text-xs sm:text-sm max-w-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
-              {t?.footer?.description || (lang === 'ភាសាខ្មែរ' || lang === 'Khmer' 
+            <p className="text-xs text-zinc-500 mt-1 max-w-sm">
+              {t?.footer?.description || (isKhmer 
                 ? 'អរគុណសម្រាប់ការទស្សនា Portfolio របស់ខ្ញុំ។' 
-                : 'Thank you for visiting my personal portfolio website.')}
+                : 'Personal developer portfolio.')}
             </p>
           </div>
 
-          {/* Social Media Links & Copyright */}
-          <div className="flex flex-col items-center md:items-end space-y-4">
-            
-            {/* Social Icons - Vivid Brand Colors */}
-            <div className="flex items-center space-x-3">
-              {/* Facebook */}
-              <a 
-                href="https://www.facebook.com/share/1LY2EmEAp7/?mibextid=wwXIfr" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={`p-2.5 rounded-2xl border transition-all duration-300 transform hover:-translate-y-1 ${
-                  isDarkMode 
-                    ? 'border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] hover:shadow-lg hover:shadow-[#1877F2]/30' 
-                    : 'border-zinc-200 bg-white/80 backdrop-blur-sm text-zinc-700 hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] hover:shadow-lg hover:shadow-[#1877F2]/30'
-                }`}
-                aria-label="Facebook"
-              >
-                <svg className="w-4 h-4 fill-current transition-colors" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-              </a>
+          {/* Social Links with Official Colored Icons & Copyright */}
+          <div className="flex flex-col sm:items-end items-center gap-4">
+            <div className="flex items-center gap-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  className={`group flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-semibold cursor-pointer select-none transform hover:-translate-y-0.5 active:scale-95 transition-all duration-200 shadow-2xs ${social.badgeClass}`}
+                >
+                  <img
+                    src={social.iconUrl}
+                    alt={`${social.name} icon`}
+                    className={`w-4 h-4 object-contain transition-transform duration-200 group-hover:scale-110 ${
+                      social.name === 'GitHub' && isDarkMode ? 'filter invert brightness-200' : ''
+                    }`}
+                    loading="lazy"
+                  />
+                  <span>{social.name}</span>
+                </a>
+              ))}
 
-              {/* Telegram */}
-              <a 
-                href="https://t.me/sokcheamoa" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={`p-2.5 rounded-2xl border transition-all duration-300 transform hover:-translate-y-1 ${
-                  isDarkMode 
-                    ? 'border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:bg-[#229ED9] hover:text-white hover:border-[#229ED9] hover:shadow-lg hover:shadow-[#229ED9]/30' 
-                    : 'border-zinc-200 bg-white/80 backdrop-blur-sm text-zinc-700 hover:bg-[#229ED9] hover:text-white hover:border-[#229ED9] hover:shadow-lg hover:shadow-[#229ED9]/30'
+              {/* Scroll To Top Button */}
+              <button
+                onClick={scrollToTop}
+                type="button"
+                aria-label="Back to top"
+                className={`p-2 rounded-full border cursor-pointer select-none transform hover:-translate-y-0.5 active:scale-90 hover:border-primary hover:text-primary transition-all duration-150 shadow-2xs ${
+                  isDarkMode
+                    ? 'border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:bg-zinc-800'
+                    : 'border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-50'
                 }`}
-                aria-label="Telegram"
               >
-                <svg className="w-4 h-4 fill-current transition-colors" viewBox="0 0 24 24">
-                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                <svg className="w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m18 15-6-6-6 6"/>
                 </svg>
-              </a>
-
-              {/* Instagram */}
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={`p-2.5 rounded-2xl border transition-all duration-300 transform hover:-translate-y-1 ${
-                  isDarkMode 
-                    ? 'border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] hover:shadow-lg hover:shadow-[#E4405F]/30' 
-                    : 'border-zinc-200 bg-white/80 backdrop-blur-sm text-zinc-700 hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] hover:shadow-lg hover:shadow-[#E4405F]/30'
-                }`}
-                aria-label="Instagram"
-              >
-                <svg className="w-4 h-4 fill-current transition-colors" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-              </a>
+              </button>
             </div>
 
-            {/* Copyright */}
-            <div className="text-center md:text-right text-xs font-medium text-zinc-700 dark:text-zinc-300">
-              <p>
-                &copy; {new Date().getFullYear()} Mao Sokchea. {t?.footer?.rights || 'All rights reserved.'}
-              </p>
-            </div>
-
+            <p className="text-[11px] text-zinc-500">
+              &copy; {new Date().getFullYear()} Mao Sokchea. All rights reserved.
+            </p>
           </div>
 
         </div>

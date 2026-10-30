@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Button from './Button';
 import profileImage from '../assets/images/Myself1.png';
+import TechIcon from './TechIcon';
 
 const Home = ({ t, isDarkMode, lang }) => {
   const fullName = "Mao Sokchea";
   const [displayedName, setDisplayedName] = useState("");
-  
-  // បន្ថែម State សម្រាប់ 3D Tilt Effect
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     let index = 0;
@@ -25,7 +22,7 @@ const Home = ({ t, isDarkMode, lang }) => {
           timer = setTimeout(() => {
             isDeleting = true;
             typeEffect();
-          }, 1500);
+          }, 2000);
           return;
         }
       } else {
@@ -37,102 +34,157 @@ const Home = ({ t, isDarkMode, lang }) => {
         }
       }
 
-      const speed = isDeleting ? 100 : 150;
+      const speed = isDeleting ? 70 : 120;
       timer = setTimeout(typeEffect, speed);
     };
 
     timer = setTimeout(typeEffect, 150);
-
     return () => clearTimeout(timer);
   }, []);
 
-  // គណនាចលនា 3D ពេល Mouse រំកិល
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - left - width / 2) / 15; // បែងចែកដើម្បីបន្ថយកម្រិតផ្អៀង
-    const y = (e.clientY - top - height / 2) / -15;
-    setTilt({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
-  };
-
   const isKhmer = lang === 'ភាសាខ្មែរ' || lang === 'Khmer' || lang === 'km';
   
+  const statusText = isKhmer 
+    ? "បើកទទួលគម្រោងថ្មីៗ & ការងារ" 
+    : "Available for new opportunities";
+
   const roleTitle = isKhmer 
-    ? "អ្នកអភិវឌ្ឍន៍ Frontend និង Backend API & និស្សិត" 
-    : (t?.welcomeTitle || "Frontend & Backend API Developer & Student");
+    ? "Frontend & Backend API Developer" 
+    : (t?.welcomeTitle || "Frontend & Backend API Developer");
 
   const roleSubtitle = isKhmer
-    ? "ខ្ញុំគឺជា Developer ដែលមានចំណង់ចំណូលចិត្តក្នុងការបង្កើត Web Applications ទំនើបៗ ដោយអាចសរសេរបានទាំង Frontend និង Backend API ដែលប្រើប្រាស់លើ API FastAPI Python and Laravel ។"
-    : (t?.welcomeSubtitle || "I am a passionate developer dedicated to building modern web applications, capable of developing both Frontend and Backend APIs powered by Python FastAPI and Laravel.");
+    ? "ខ្ញុំគឺជា Developer ដែលមានចំណង់ចំណូលចិត្តក្នុងការបង្កើត Web Applications ទំនើបៗ ដោយអាចសរសេរបានទាំង Frontend និង Backend API រួមមាន Python FastAPI, Laravel និង React ។"
+    : (t?.welcomeSubtitle || "Passionate software developer specializing in building modern web applications, scalable Backend APIs with Python FastAPI and Laravel, and interactive frontends with React.");
 
   const viewProjectsText = isKhmer ? "មើលគម្រោង" : (t?.viewProjects || "View Projects");
+  const contactText = isKhmer ? "ទាក់ទងខ្ញុំ" : (t?.contactMe || "Get in Touch");
+
+  // Professional Tech Stack with Official Docs URLs
+  const techStack = [
+    { 
+      name: "React", 
+      url: "https://react.dev" 
+    },
+    { 
+      name: "FastAPI", 
+      url: "https://fastapi.tiangolo.com" 
+    },
+    { 
+      name: "Laravel", 
+      url: "https://laravel.com" 
+    },
+    { 
+      name: "Tailwind CSS", 
+      url: "https://tailwindcss.com" 
+    },
+    { 
+      name: "Python", 
+      url: "https://www.python.org" 
+    },
+    { 
+      name: "MySQL", 
+      url: "https://www.mysql.com" 
+    },
+  ];
 
   return (
-    <section id="home" className={`py-24 transition-colors duration-300 ${isDarkMode ? 'bg-black text-white' : 'bg-white text-gray-900'} overflow-hidden`}>
-      
-      {/* បន្ថែម CSS Keyframes សម្រាប់ចលនាអណ្តែត */}
-      <style>
-        {`
-          @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-          }
-          .animate-float {
-            animation: float 6s ease-in-out infinite;
-          }
-        `}
-      </style>
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex flex-col-reverse md:flex-row-reverse items-center justify-center gap-12 lg:gap-20">
+    <section 
+      id="home" 
+      className={`py-16 md:py-24 transition-colors duration-200 ${
+        isDarkMode ? 'text-white' : 'text-zinc-900'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12 lg:gap-16">
           
-          {/* Right Side: Profile Image (កែសម្រួលផ្នែកនេះ) */}
-          <div 
-            className="flex-shrink-0 mb-10 md:mb-0 relative group"
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ perspective: '1000px' }} // បន្ថែម Perspective សម្រាប់ 3D
-          >
-            {/* ពន្លឺចាំងនៅខាងក្រោយរូបភាព (Glowing Effect) */}
-            <div className="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full scale-75 group-hover:scale-110 group-hover:bg-yellow-500/20 transition-all duration-700"></div>
-
-            <div 
-              className="w-64 h-auto lg:w-80 mx-auto relative z-10 animate-float transition-transform duration-200 ease-out"
-              style={{
-                transform: `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`
-              }}
-            >
-              <img 
-                src={profileImage} 
-                alt="Mao Sokchea" 
-                // បន្ថែម drop-shadow ដើម្បីឲ្យរូបភាពមានជម្រៅ និង hover ឲ្យធំឡើងបន្តិច
-                className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-          </div>
-
           {/* Left Side: Content */}
-          <div className="text-center md:text-left max-w-xl">
-            <h1 className="text-5xl lg:text-7xl font-extrabold mb-4 tracking-tighter leading-none min-h-[1.1em]">
+          <div className="text-center md:text-left max-w-2xl">
+            
+            {/* Simple Status Badge with Click Effect */}
+            <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium mb-6 border cursor-pointer select-none transform active:scale-95 active:border-primary active:text-primary active:ring-2 active:ring-primary/30 transition-all duration-150 ${
+              isDarkMode 
+                ? 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-700' 
+                : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:border-zinc-300'
+            }`}>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>{statusText}</span>
+            </div>
+
+            {/* Name */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-3">
               <span>{displayedName}</span>
-              <span className="animate-pulse text-primary">|</span>
+              <span className="animate-pulse text-primary font-light">|</span>
             </h1>
             
-            <p className="text-xl lg:text-2xl font-semibold mb-6 text-primary">
+            {/* Role Title */}
+            <p className="text-lg sm:text-xl font-semibold mb-4 text-primary">
               {roleTitle}
             </p>
-            <p className={`text-lg lg:text-xl mb-8 leading-relaxed ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
+            
+            {/* Bio Subtitle */}
+            <p className={`text-sm sm:text-base mb-8 leading-relaxed max-w-xl ${
+              isDarkMode ? 'text-zinc-400' : 'text-zinc-600'
+            }`}>
               {roleSubtitle}
             </p>
             
-            <div className="flex justify-center md:justify-start gap-4">
-              <Button href="#projects" variant="primary">
+            {/* Action Buttons with Spring Click Animation & Primary Activation */}
+            <div className="flex flex-wrap justify-center md:justify-start items-center gap-3.5 mb-8">
+              <a
+                href="#projects"
+                className="px-6 py-2.5 rounded-lg text-sm font-semibold text-white bg-primary hover:bg-primary-600 shadow-sm shadow-primary/25 cursor-pointer transform active:scale-95 active:ring-4 active:ring-primary/40 transition-all duration-150 select-none"
+              >
                 {viewProjectsText}
-              </Button>
+              </a>
+
+              <a
+                href="#contact"
+                className={`px-6 py-2.5 rounded-lg text-sm font-semibold border cursor-pointer transform active:scale-95 active:border-primary active:bg-primary active:text-white active:ring-2 active:ring-primary/30 transition-all duration-150 select-none ${
+                  isDarkMode 
+                    ? 'border-zinc-800 text-zinc-300 hover:bg-zinc-800/80 hover:text-white hover:border-primary' 
+                    : 'border-zinc-300 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 hover:border-primary'
+                }`}
+              >
+                {contactText}
+              </a>
+            </div>
+
+            {/* Clean Tech Stack with Pure Inline SVG Icons (Never Broken) & Docs URLs */}
+            <div className="flex flex-wrap justify-center md:justify-start items-center gap-2 pt-2">
+              <span className={`text-xs font-medium mr-1 ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                Stack:
+              </span>
+              {techStack.map((tech, index) => (
+                <a
+                  key={index}
+                  href={tech.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`View official ${tech.name} documentation (${tech.url})`}
+                  className={`inline-flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-lg border cursor-pointer transform hover:-translate-y-0.5 active:scale-90 active:border-primary active:bg-primary/10 active:text-primary active:ring-2 active:ring-primary/40 transition-all duration-150 select-none ${
+                    isDarkMode 
+                      ? 'border-zinc-800 bg-zinc-900 text-zinc-300 hover:border-primary hover:text-primary' 
+                      : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-primary hover:text-primary'
+                  }`}
+                >
+                  <TechIcon name={tech.name} className="w-4 h-4 flex-shrink-0" />
+                  <span>{tech.name}</span>
+                </a>
+              ))}
+            </div>
+
+          </div>
+
+          {/* Right Side: Simple Clean Profile Image with Click Feedback */}
+          <div className="flex-shrink-0">
+            <div className={`relative w-56 sm:w-64 lg:w-72 rounded-2xl overflow-hidden border p-1 cursor-pointer transform active:scale-95 active:border-primary active:ring-4 active:ring-primary/20 transition-all duration-300 hover:scale-[1.02] ${
+              isDarkMode ? 'border-zinc-800 bg-zinc-900' : 'border-zinc-200 bg-zinc-100'
+            }`}>
+              <img 
+                src={profileImage} 
+                alt="Mao Sokchea" 
+                className="w-full h-auto object-cover rounded-xl"
+              />
             </div>
           </div>
 

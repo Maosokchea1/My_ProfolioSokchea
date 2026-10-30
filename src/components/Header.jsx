@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('#home');
+
   const navHrefs = {
     home: '#home',
     about: '#about',
     skills: '#skills',
     projects: '#projects',
-    education: '#education-experience',
+    education: '#experience',
     contact: '#contact',
   };
+
   const navLinks = Array.isArray(t?.nav)
     ? t.nav
     : Object.entries(t?.nav || {}).map(([key, name]) => ({
@@ -18,109 +20,172 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
         href: navHrefs[key] || `#${key}`,
       }));
 
-  const currentFontClass =
-    lang === 'ភាសាខ្មែរ' || lang === 'Khmer'
-      ? 'font-khmer'
-      : lang === 'සිංහහ' || lang === 'Sinhala'
-      ? 'font-sinhala'
-      : 'font-sans';
+  const isKhmer = lang === 'ភាសាខ្មែរ' || lang === 'Khmer' || lang === 'km';
+  const currentFontClass = isKhmer ? 'font-khmer' : 'font-sans';
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 120;
+      for (const link of navLinks) {
+        const targetId = link.href.replace('#', '');
+        const section = document.getElementById(targetId);
+        if (section) {
+          const top = section.offsetTop;
+          const height = section.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(link.href);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [navLinks]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setIsOpen(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  /* =========================================================
+     ⭐ ONE Professional Icon System — Lucide (inline SVG)
+     • stroke-width="2"  • stroke-linecap="round"
+     • stroke-linejoin="round"  • viewBox="0 0 24 24"
+     All icons 100% consistent in style & visual weight.
+     ========================================================= */
+
+  // --- Shared props ---
+  const iconProps = {
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 2,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+  };
+
+  // --- Theme Icon (Sun / Moon) ---
   const ThemeIcon = ({ dark }) =>
     dark ? (
-      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-        <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+      <svg {...iconProps} className="w-5 h-5">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2" />
+        <path d="M12 20v2" />
+        <path d="m4.93 4.93 1.41 1.41" />
+        <path d="m17.66 17.66 1.41 1.41" />
+        <path d="M2 12h2" />
+        <path d="M20 12h2" />
+        <path d="m6.34 17.66-1.41 1.41" />
+        <path d="m19.07 4.93-1.41 1.41" />
       </svg>
     ) : (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="4" />
-        <path strokeLinecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
+      <svg {...iconProps} className="w-5 h-5">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
       </svg>
     );
 
+  // --- Navigation Icon (single unified set) ---
   const getNavLinkIcon = (href, isActive) => {
-    const iconClass = "w-4 h-4 stroke-current";
-    
-    let svgPath = null;
+    let icon = null;
+
     switch (href) {
-      case '#home':
-        svgPath = (
-          <svg className={iconClass} fill="none" strokeWidth="1.75" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v4.875h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-          </svg>
+      case '#home': // Lucide: House
+        icon = (
+          <>
+            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+            <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          </>
         );
         break;
-      case '#about':
-        svgPath = (
-          <svg className={iconClass} fill="none" strokeWidth="1.75" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-          </svg>
+
+      case '#about': // Lucide: User
+        icon = (
+          <>
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </>
         );
         break;
-      case '#skills':
-        svgPath = (
-          <svg className={iconClass} fill="none" strokeWidth="1.75" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
-          </svg>
+
+      case '#skills': // Lucide: Code-2
+        icon = (
+          <>
+            <path d="m18 16 4-4-4-4" />
+            <path d="m6 8-4 4 4 4" />
+            <path d="m14.5 4-5 16" />
+          </>
         );
         break;
-      case '#projects':
-        svgPath = (
-          <svg className={iconClass} fill="none" strokeWidth="1.75" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A1.5 1.5 0 0019.5 18.75L13.67 12.92m0 0l-3.34-3.34a3 3 0 10-4.24 4.24l3.34 3.34m4.24-4.24L7.5 5.25A1.5 1.5 0 005.25 7.5l5.92 5.92" />
-          </svg>
+
+      case '#projects': // Lucide: Folder
+        icon = (
+          <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
         );
         break;
-      case '#education-experience':
-        svgPath = (
-          <svg className={iconClass} fill="none" strokeWidth="1.75" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 01-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 3.75a.75.75 0 100-1.5.75.75 0 000 1.5z" />
-          </svg>
+
+      case '#experience':
+      case '#education':
+      case '#education-experience': // Lucide: Briefcase
+        icon = (
+          <>
+            <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            <rect width="20" height="14" x="2" y="6" rx="2" />
+          </>
         );
         break;
-      case '#contact':
-        svgPath = (
-          <svg className={iconClass} fill="none" strokeWidth="1.75" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-          </svg>
+
+      case '#contact': // Lucide: Mail
+        icon = (
+          <>
+            <rect width="20" height="16" x="2" y="4" rx="2" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+          </>
         );
         break;
-      default:
-        svgPath = (
-          <svg className={iconClass} fill="none" strokeWidth="1.75" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="3" />
-          </svg>
+
+      default: // Lucide: Info
+        icon = (
+          <>
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 16v-4" />
+            <path d="M12 8h.01" />
+          </>
         );
     }
 
     return (
-      <span className={`flex items-center justify-center transition-colors ${
-        isActive
-          ? 'text-primary'
-          : isDarkMode 
-            ? 'text-zinc-400 group-hover:text-primary' 
+      <span
+        className={`flex items-center justify-center transition-colors duration-200 ${
+          isActive
+            ? 'text-primary'
+            : isDarkMode
+            ? 'text-zinc-400 group-hover:text-primary'
             : 'text-zinc-500 group-hover:text-primary'
-      }`}>
-        {svgPath}
+        }`}
+      >
+        <svg {...iconProps} className="w-[18px] h-[18px]">
+          {icon}
+        </svg>
       </span>
     );
   };
 
-  const getFlagUrl = (currentLang) => {
-    if (currentLang === 'English') {
-      return 'https://flagcdn.com/w40/gb.png';
-    } else if (currentLang === 'ភាសាខ្មែរ' || currentLang === 'Khmer') {
-      return 'https://flagcdn.com/w40/kh.png';
-    } else {
-      return 'https://flagcdn.com/w40/lk.png';
-    }
-  };
+  const getFlagUrl = (currentLang) =>
+    currentLang === 'English'
+      ? 'https://flagcdn.com/w40/gb.png'
+      : 'https://flagcdn.com/w40/kh.png';
 
   return (
     <header
       className={`fixed top-0 left-0 w-full backdrop-blur-md z-50 transition-colors duration-200 border-b ${currentFontClass} ${
         isDarkMode
-          ? 'bg-black/90 border-zinc-800 text-white'
-          : 'bg-white/90 border-zinc-200 text-black'
+          ? 'bg-[#0c0c0e]/95 border-zinc-800/80 text-white'
+          : 'bg-white/95 border-zinc-200 text-zinc-900 shadow-xs'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -128,13 +193,16 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
           
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#home" className="text-2xl font-bold tracking-tight">
+            <a
+              href="#home"
+              className="text-2xl sm:text-3xl font-extrabold tracking-tight inline-block cursor-pointer select-none transform active:scale-95 transition-all duration-150"
+            >
               PORTFOLIO<span className="text-primary">.</span>
             </a>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex space-x-6" aria-label="Main Navigation">
+          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2" aria-label="Main Navigation">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href;
               return (
@@ -142,12 +210,12 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
                   key={link.name}
                   href={link.href}
                   onClick={() => setActiveSection(link.href)}
-                  className={`group flex items-center gap-2 text-sm font-medium py-2 transition-colors ${
+                  className={`group flex items-center gap-2 text-[15px] font-semibold px-4 py-2.5 rounded-xl cursor-pointer select-none transform active:scale-95 transition-all duration-150 ${
                     isActive
-                      ? 'text-primary'
+                      ? 'text-primary bg-primary/10 border border-primary/30 shadow-xs'
                       : isDarkMode
-                        ? 'text-zinc-300 hover:text-primary'
-                        : 'text-zinc-700 hover:text-primary'
+                      ? 'text-zinc-300 hover:text-primary hover:bg-zinc-800/60'
+                      : 'text-zinc-700 hover:text-primary hover:bg-zinc-100'
                   }`}
                 >
                   {getNavLinkIcon(link.href, isActive)}
@@ -157,15 +225,15 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
             })}
           </nav>
 
-          {/* Desktop Controls (Border ដកចេញ ជំនួសដោយ Background ស្រទន់ពេល Hover) */}
-          <div className="hidden lg:flex items-center space-x-2">
+          {/* Controls: Theme & Language */}
+          <div className="hidden lg:flex items-center space-x-2.5">
             <button
               onClick={toggleTheme}
               type="button"
-              className={`flex items-center justify-center p-2.5 rounded-xl transition-all ${
+              className={`flex items-center justify-center p-2.5 rounded-xl border cursor-pointer select-none transform active:scale-90 hover:border-primary hover:text-primary transition-all duration-150 ${
                 isDarkMode
-                  ? 'text-zinc-300 hover:text-primary hover:bg-zinc-900'
-                  : 'text-zinc-600 hover:text-primary hover:bg-zinc-100'
+                  ? 'border-zinc-800 bg-zinc-900 text-zinc-300'
+                  : 'border-zinc-200 bg-zinc-50 text-zinc-700'
               }`}
               aria-label="Toggle theme"
             >
@@ -175,31 +243,29 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
             <button
               onClick={toggleLanguage}
               type="button"
-              className={`flex items-center gap-2 text-sm font-semibold px-3.5 py-2 rounded-xl transition-all ${
+              className={`flex items-center gap-2 text-sm font-semibold px-3.5 py-2.5 rounded-xl border cursor-pointer select-none transform active:scale-90 hover:border-primary hover:text-primary transition-all duration-150 ${
                 isDarkMode
-                  ? 'text-zinc-300 hover:text-primary hover:bg-zinc-900'
-                  : 'text-zinc-700 hover:text-primary hover:bg-zinc-100'
+                  ? 'border-zinc-800 bg-zinc-900 text-zinc-300'
+                  : 'border-zinc-200 bg-zinc-50 text-zinc-700'
               }`}
               aria-label="Toggle language"
             >
-              <img 
-                src={getFlagUrl(lang)} 
-                alt={`${lang} flag`} 
-                className="w-5 h-3.5 object-cover rounded-sm shadow-sm" 
+              <img
+                src={getFlagUrl(lang)}
+                alt={`${lang} flag`}
+                className="w-5 h-3.5 object-cover rounded-xs"
               />
               <span>{lang}</span>
             </button>
           </div>
 
-          {/* Mobile Menu Button (Border ដកចេញដូចគ្នា) */}
-          <div className="flex items-center space-x-1 lg:hidden">
+          {/* Mobile Quick Controls */}
+          <div className="flex items-center space-x-2 lg:hidden">
             <button
               onClick={toggleTheme}
               type="button"
-              className={`p-2 rounded-xl transition-all ${
-                isDarkMode
-                  ? 'text-zinc-300 hover:text-primary hover:bg-zinc-900'
-                  : 'text-zinc-600 hover:text-primary hover:bg-zinc-100'
+              className={`p-2.5 rounded-xl border cursor-pointer select-none transform active:scale-90 hover:border-primary transition-all duration-150 ${
+                isDarkMode ? 'border-zinc-800 bg-zinc-900 text-zinc-300' : 'border-zinc-200 bg-zinc-50 text-zinc-700'
               }`}
               aria-label="Toggle theme"
             >
@@ -209,36 +275,41 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
             <button
               onClick={toggleLanguage}
               type="button"
-              className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-xl transition-all ${
-                isDarkMode
-                  ? 'text-zinc-300 hover:text-primary hover:bg-zinc-900'
-                  : 'text-zinc-700 hover:text-primary hover:bg-zinc-100'
+              className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl border cursor-pointer select-none transform active:scale-90 hover:border-primary transition-all duration-150 ${
+                isDarkMode ? 'border-zinc-800 bg-zinc-900 text-zinc-300' : 'border-zinc-200 bg-zinc-50 text-zinc-700'
               }`}
               aria-label="Toggle language"
             >
-              <img 
-                src={getFlagUrl(lang)} 
-                alt={`${lang} flag`} 
-                className="w-4.5 h-3 object-cover rounded-sm shadow-sm" 
+              <img
+                src={getFlagUrl(lang)}
+                alt={`${lang} flag`}
+                className="w-4.5 h-3 object-cover rounded-xs"
               />
-              <span>{lang}</span>
+              <span>{lang === 'English' ? 'EN' : 'ខ្មែរ'}</span>
             </button>
 
+            {/* Mobile Hamburger / Close — Lucide Menu & X */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className={`p-2 rounded-xl transition-all ${
-                isDarkMode 
-                  ? 'text-zinc-300 hover:text-primary hover:bg-zinc-900' 
-                  : 'text-zinc-700 hover:text-primary hover:bg-zinc-100'
+              aria-expanded={isOpen}
+              className={`p-2.5 rounded-xl border cursor-pointer select-none transform active:scale-90 hover:border-primary transition-all duration-150 ${
+                isDarkMode ? 'border-zinc-800 bg-zinc-900 text-zinc-300' : 'border-zinc-200 bg-zinc-50 text-zinc-700'
               }`}
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
-              <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
+              <svg {...iconProps} className="w-[18px] h-[18px]">
                 {isOpen ? (
-                  <path fillRule="evenodd" clipRule="evenodd" d="M18.278 16.864a1 1 0 01-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 01-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 011.414-1.414l4.829 4.828 4.828-4.828a1 1 0 111.414 1.414l-4.828 4.829 4.828 4.828z" />
+                  <>
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                  </>
                 ) : (
-                  <path fillRule="evenodd" d="M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 110-2z" />
+                  <>
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                  </>
                 )}
               </svg>
             </button>
@@ -249,8 +320,8 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
       {/* Mobile Menu Dropdown */}
       {isOpen && (
         <div
-          className={`lg:hidden border-b px-4 pt-3 pb-5 space-y-2 ${
-            isDarkMode ? 'bg-black border-zinc-800' : 'bg-white border-zinc-200'
+          className={`lg:hidden border-b px-4 py-4 space-y-1.5 animate-in fade-in slide-in-from-top-2 duration-150 ${
+            isDarkMode ? 'bg-[#0c0c0e] border-zinc-800' : 'bg-white border-zinc-200'
           }`}
         >
           {navLinks.map((link) => {
@@ -263,12 +334,12 @@ const Header = ({ lang, toggleLanguage, isDarkMode, toggleTheme, t }) => {
                   setActiveSection(link.href);
                   setIsOpen(false);
                 }}
-                className={`flex items-center gap-3 font-medium text-base py-2 px-3 rounded-lg transition-all ${
+                className={`flex items-center gap-3 font-semibold text-[15.5px] py-3.5 px-4 rounded-xl cursor-pointer transform active:scale-95 transition-all duration-150 ${
                   isActive
-                    ? 'text-primary'
-                    : isDarkMode 
-                      ? 'text-zinc-300 hover:text-primary' 
-                      : 'text-zinc-700 hover:text-primary'
+                    ? 'text-primary bg-primary/10 border border-primary/30 font-bold'
+                    : isDarkMode
+                    ? 'text-zinc-300 hover:text-primary hover:bg-zinc-800'
+                    : 'text-zinc-700 hover:text-primary hover:bg-zinc-100'
                 }`}
               >
                 {getNavLinkIcon(link.href, isActive)}
