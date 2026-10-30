@@ -21,11 +21,12 @@ const Skills = ({ t, isDarkMode, lang }) => {
     { name: "PHP", category: "Backend", url: "https://www.php.net/manual/en/" },
     { name: "Laravel", category: "Backend", url: "https://laravel.com/docs" },
 
-    // Database
+    // Database (បានបន្ថែម និងកែឈ្មោះឱ្យស្តង់ដារ)
     { name: "MySQL", category: "Database", url: "https://dev.mysql.com/doc/" },
+    { name: "SQL Server", category: "Database", url: "https://learn.microsoft.com/en-us/sql/sql-server/" },
     { name: "PostgreSQL", category: "Database", url: "https://www.postgresql.org/docs/" },
     { name: "Oracle DB", category: "Database", url: "https://docs.oracle.com/en/database/" },
-    { name: "SQL Server", category: "Database", url: "https://learn.microsoft.com/en-us/sql/sql-server/" },
+    { name: "MongoDB", category: "Database", url: "https://www.mongodb.com/docs/" }, // បន្ថែម MongoDB បង្គោល
 
     // Tools
     { name: "Git & GitHub", category: "Tools", url: "https://docs.github.com/en" },
@@ -48,23 +49,21 @@ const Skills = ({ t, isDarkMode, lang }) => {
     ? skillsList 
     : skillsList.filter(s => s.category.toLowerCase() === activeCategory.toLowerCase());
 
-  // ចែកជា ២ ជួរ
+  // គណនាសម្រាប់ Marquee
   const halfLength = Math.ceil(filteredSkills.length / 2);
   const rowOneItems = filteredSkills.slice(0, halfLength);
   const rowTwoItems = filteredSkills.slice(halfLength);
-
-  // គុណនឹង ២ ដើម្បីឱ្យរត់ loop មិនដាច់
   const rowOne = [...rowOneItems, ...rowOneItems];
   const rowTwo = [...rowTwoItems, ...rowTwoItems];
 
-  const renderSkillCard = (skill, index) => (
+  const renderSkillCard = (skill, index, isStatic = false) => (
     <a
       key={`${skill.name}-${index}`}
       href={skill.url}
       target="_blank"
       rel="noopener noreferrer"
       title={`Read official ${skill.name} documentation`}
-      className={`w-40 sm:w-44 flex-shrink-0 p-4 rounded-2xl border flex flex-col items-center text-center cursor-pointer select-none transition-all duration-200 ease-out transform hover:-translate-y-1.5 hover:border-primary hover:shadow-lg hover:shadow-primary/10 ${
+      className={`${isStatic ? 'w-full' : 'w-40 sm:w-44 flex-shrink-0'} p-4 rounded-2xl border flex flex-col items-center text-center cursor-pointer select-none transition-all duration-200 ease-out transform hover:-translate-y-1.5 hover:border-primary hover:shadow-lg hover:shadow-primary/10 ${
         isDarkMode 
           ? 'border-zinc-800 bg-zinc-900/60 hover:bg-zinc-900 text-white' 
           : 'border-zinc-200 bg-white hover:border-primary shadow-xs text-zinc-900'
@@ -123,7 +122,6 @@ const Skills = ({ t, isDarkMode, lang }) => {
         }
       `}</style>
 
-      {/* Container (ថត) កម្រិតត្រឹម max-w-6xl ស្មើនឹង Header & Buttons */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -161,28 +159,35 @@ const Skills = ({ t, isDarkMode, lang }) => {
           })}
         </div>
 
-        {/* រៀបចំ Marquee ២ ជួរ នៅក្នុង "ថត" នេះ (មាន overflow-hidden & rounded-3xl) */}
-        <div className="relative overflow-hidden rounded-3xl p-2 flex flex-col gap-4">
+        {/* ផ្នែកបង្ហាញកាត */}
+        {activeCategory === 'all' ? (
           
-          {/* Shadow ស្រាលៗបាំងគែមសងខាងកុំឱ្យទើសភ្នែក */}
-          <div className={`pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-16 z-10 bg-gradient-to-r ${
-            isDarkMode ? 'from-[#0c0c0e] to-transparent' : 'from-white to-transparent'
-          }`} />
-          <div className={`pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-16 z-10 bg-gradient-to-l ${
-            isDarkMode ? 'from-[#0c0c0e] to-transparent' : 'from-white to-transparent'
-          }`} />
+          // Marquee រត់ចុះឡើង (ពេលជ្រើសរើស 'ទាំងអស់')
+          <div className="relative overflow-hidden rounded-3xl p-2 flex flex-col gap-4">
+            <div className={`pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-16 z-10 bg-gradient-to-r ${
+              isDarkMode ? 'from-[#0c0c0e] to-transparent' : 'from-white to-transparent'
+            }`} />
+            <div className={`pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-16 z-10 bg-gradient-to-l ${
+              isDarkMode ? 'from-[#0c0c0e] to-transparent' : 'from-white to-transparent'
+            }`} />
 
-          {/* ជួរទី ១៖ រត់ពីស្ដាំទៅឆ្វេង */}
-          <div key={`row1-${activeCategory}`} className="track-left flex gap-3.5">
-            {rowOne.map((skill, index) => renderSkillCard(skill, index))}
+            <div key={`row1-${activeCategory}`} className="track-left flex gap-3.5">
+              {rowOne.map((skill, index) => renderSkillCard(skill, index, false))}
+            </div>
+
+            <div key={`row2-${activeCategory}`} className="track-right flex gap-3.5">
+              {rowTwo.map((skill, index) => renderSkillCard(skill, index, false))}
+            </div>
           </div>
 
-          {/* ជួរទី ២៖ រត់ពីឆ្វេងទៅស្ដាំ */}
-          <div key={`row2-${activeCategory}`} className="track-right flex gap-3.5">
-            {rowTwo.map((skill, index) => renderSkillCard(skill, index))}
+        ) : (
+
+          // Grid ថេរ (ពេលជ្រើសរើស Database, Frontend ជាដើម)
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 justify-items-center animate-in fade-in zoom-in-95 duration-300">
+            {filteredSkills.map((skill, index) => renderSkillCard(skill, index, true))}
           </div>
 
-        </div>
+        )}
 
       </div>
     </section>

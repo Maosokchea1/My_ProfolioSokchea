@@ -7,15 +7,14 @@ export const TechIcon = ({ name = '', className = 'w-6 h-6' }) => {
   // Official Brand Vector SVGs from Devicon CDN
   const iconUrls = {
     // Frontend
+    'html5 & css3': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg',
     html: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg',
     css: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg',
-    'html5 & css3': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg',
     javascript: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg',
-
-    react: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',
     'react.jsx': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',
-    tailwind: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
+    react: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',
     'tailwind css': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
+    tailwind: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
     bootstrap: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg',
 
     // Backend
@@ -30,7 +29,9 @@ export const TechIcon = ({ name = '', className = 'w-6 h-6' }) => {
     postgres: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg',
     'oracle db': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg',
     oracle: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/oracle/oracle-original.svg',
-    'sql server': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-plain.svg',
+    // កែសម្រួល៖ ប្តូរពី -plain.svg ទៅ -original.svg ដើម្បីឱ្យចេញពណ៌ខៀវស្អាត
+    'sql server': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-original.svg',
+    mongodb: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg',
 
     // Tools & Platforms
     'git & github': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg',
@@ -41,14 +42,16 @@ export const TechIcon = ({ name = '', className = 'w-6 h-6' }) => {
     docker: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg',
     postman: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg',
     figma: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg',
-    telegram: 'https://cdnjs.cloudflare.com/ajax/libs/simple-icons/11.7.0/telegram.svg',
-    'telegram bot api': 'https://cdnjs.cloudflare.com/ajax/libs/simple-icons/11.7.0/telegram.svg',
+    telegram: 'https://cdn.simpleicons.org/telegram/229ED9', // កែទៅប្រើ SimpleIcons ផ្ទាល់សម្រាប់ Telegram
+    'telegram bot api': 'https://cdn.simpleicons.org/telegram/229ED9',
   };
 
-  // ស្វែងរក Icon URL តាម key ឬ fallback
-  const matchedKey = Object.keys(iconUrls).find(
-    (k) => key === k || key.includes(k)
-  );
+  // កែសម្រួល Logic៖ ពិនិត្យ Exact Match មុន រួចទើប Includes
+  let matchedKey = Object.keys(iconUrls).find((k) => key === k);
+  if (!matchedKey) {
+    matchedKey = Object.keys(iconUrls).find((k) => key.includes(k));
+  }
+  
   const iconSrc = matchedKey ? iconUrls[matchedKey] : null;
 
   // បើរកមិនឃើញ ឬ load error នឹងបង្ហាញ Minimal Fallback SVG
